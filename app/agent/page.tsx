@@ -6,7 +6,7 @@ import { companies, profile } from "@/lib/profile";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: `Job agent — ${profile.name}`,
+  title: `Job agent · ${profile.name}`,
   description:
     "A live pipeline that reads job postings across a watchlist of companies, scores them with Claude, and drafts outreach.",
 };
@@ -75,7 +75,7 @@ export default async function AgentPage() {
             <p>
               <strong>Collect.</strong> A scheduled job hits the public posting
               APIs for Greenhouse, Lever and Ashby. No scraping and no headless
-              browser — those boards publish clean JSON, and one dead board never
+              browser. Those boards publish clean JSON, and one dead board never
               takes down the run.
             </p>
             <p>
@@ -86,7 +86,7 @@ export default async function AgentPage() {
             </p>
             <p>
               <strong>Score what survives.</strong> Each new posting goes to
-              Claude with a strict schema — a 0–100 score, the specific reasons,
+              Claude with a strict schema: a 0 to 100 score, the specific reasons,
               and a draft opener. The prompt is told exactly what I can and
               can&apos;t do, including that I don&apos;t write code, so it scores
               hands-on engineering roles low on purpose.

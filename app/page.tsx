@@ -72,7 +72,7 @@ export default async function Home() {
             <div className="rise">
               <span className="badge">
                 <span className="dot" aria-hidden />
-                Agent live — {summary.total.toLocaleString()} postings read
+                Agent live · {summary.total.toLocaleString()} postings read
               </span>
             </div>
           )}
@@ -80,7 +80,7 @@ export default async function Home() {
           <h1 className="t-hero rise d1">I ship software I don&apos;t write.</h1>
 
           <p className="t-sub measure rise d2" style={{ marginInline: "auto" }}>
-            I&apos;m not a programmer. I direct AI coding agents — I decide what gets
+            I&apos;m not a programmer. I direct AI coding agents. I decide what gets
             built, judge whether it&apos;s actually right, and drive it until it
             ships.
           </p>
@@ -109,8 +109,8 @@ export default async function Home() {
             <p className="t-body measure-wide" style={{ marginBottom: 44 }}>
               I can&apos;t write most of the code in these projects, and I
               won&apos;t pretend otherwise. What I can do is take something from
-              an idea to a finished, working, audited product — which turns out
-              to be a different skill, and a scarcer one than it used to be.
+              an idea to a finished, working, audited product. That turns out to
+              be a different skill, and a scarcer one than it used to be.
             </p>
 
             <div className="pillars">
@@ -125,7 +125,7 @@ export default async function Home() {
                 <h3>Judge whether it&apos;s right</h3>
                 <p>
                   AI is confidently wrong all the time. Catching that is the
-                  job — a payout model that doesn&apos;t hold, a filter that
+                  job. A payout model that doesn&apos;t hold. A filter that
                   quietly matches the wrong thing.
                 </p>
               </div>
@@ -264,7 +264,7 @@ export default async function Home() {
           <h2 className="t-section">Looking for my next role.</h2>
           <p className="t-sub measure" style={{ marginInline: "auto" }}>
             Best fit is a team that wants someone who can take an idea to shipped
-            using AI — and who tells you plainly how it got built.
+            using AI, and who tells you plainly how it got built.
           </p>
           <p style={{ marginTop: 12 }}>
             <a href={`mailto:${profile.email}`} className="email-xl">

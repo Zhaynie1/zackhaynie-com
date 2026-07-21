@@ -2,7 +2,7 @@ import { neon } from "@neondatabase/serverless";
 
 /**
  * Postgres (Neon). The whole app degrades gracefully when DATABASE_URL is
- * unset — the portfolio renders fine, the agent dashboard just shows an
+ * unset. The portfolio renders fine, the agent dashboard just shows an
  * empty state. That means `npm run dev` works before you've set anything up.
  */
 const url = process.env.DATABASE_URL;
@@ -53,7 +53,7 @@ export async function initSchema() {
 
 /**
  * Drop rows we stored but never managed to score. Without this, a run that
- * fails at the scoring step poisons those postings forever — they'd count as
+ * fails at the scoring step poisons those postings forever. They'd count as
  * "seen" and never be retried.
  */
 export async function deleteUnscored(): Promise<number> {

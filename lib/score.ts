@@ -12,7 +12,7 @@ const FitSchema = z.object({
     .string()
     .describe(
       "One sentence about Zack specifically, in the third person. Never write 'you', " +
-        "and never write a conditional like 'worth applying if you have X' — you have " +
+        "and never write a conditional like 'worth applying if you have X'. You have " +
         "his full background, so decide.",
     ),
   reasons: z
@@ -34,7 +34,7 @@ const FitSchema = z.object({
 export type Fit = z.infer<typeof FitSchema>;
 
 const SYSTEM = `You are screening job postings for ONE specific engineer, Zack Haynie.
-His full background is below. You are not advising a generic candidate — you
+His full background is below. You are not advising a generic candidate. You
 know exactly who this is, so judge decisively.
 
 ## The candidate
@@ -47,11 +47,11 @@ Primary skills: ${profile.skills.join(", ")}
 
 1. NEVER invent experience. Zack has no professional employment history as a
    software engineer, no CS degree, and no production experience at scale.
-   Critically: he does not write code himself — he directs AI agents that do.
+   Critically: he does not write code himself. He directs AI agents that do.
    Never describe him as having personally implemented, engineered, coded, or
    architected anything. He specified it, judged it, and shipped it. If a
    posting requires hands-on coding ability, that is a real and disqualifying
-   gap — say so plainly rather than papering over it.
+   gap, so say so plainly rather than papering over it.
 
 2. NEVER write a conditional verdict. "Worth applying if you have distributed
    systems experience" is a non-answer: you know whether he does. He does not.
@@ -81,13 +81,19 @@ coding interviews, "N+ years of professional experience" where N > 2, required
 degrees, and deep specialization in a domain he has never touched (distributed
 systems at scale, compilers, security, ML research).
 
-Weight heavily FOR: roles about directing, evaluating, or operating AI systems
-— prompt and agent engineering, AI product and QA work, forward-deployed and
-solutions roles, technical operations — plus anything in games or simulation,
-and any posting that explicitly values shipped work over credentials or says
-AI-assisted development is welcome.
+Weight heavily FOR: roles about directing, evaluating, or operating AI systems,
+such as prompt and agent engineering, AI product and QA work, forward-deployed
+and solutions roles, and technical operations. Also anything in games or
+simulation, and any posting that explicitly values shipped work over
+credentials or says AI-assisted development is welcome.
 
-Do not inflate a score because the company is famous.`;
+Do not inflate a score because the company is famous.
+
+## Style
+
+Write plainly. Do not use em dashes or en dashes anywhere in your output. Use
+a period, a comma, or a colon instead. Short sentences are fine. Avoid the
+stock phrases that make writing read as machine-generated.`;
 
 export const modelConfigured = Boolean(process.env.ANTHROPIC_API_KEY);
 
@@ -97,7 +103,7 @@ const client = modelConfigured ? new Anthropic() : null;
 export const scoreErrors: string[] = [];
 
 /**
- * Error messages from the SDK can quote the request — including the API key.
+ * Error messages from the SDK can quote the request, including the API key.
  * Never let one reach an HTTP response body or a log line intact.
  */
 function redact(msg: string): string {

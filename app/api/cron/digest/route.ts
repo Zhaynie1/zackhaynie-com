@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const from = process.env.DIGEST_FROM;
   const to = process.env.DIGEST_TO;
   if (!apiKey || !from || !to) {
-    // Email isn't configured yet — still report what we found.
+    // Email isn't configured yet, so still report what we found.
     return NextResponse.json({ ok: true, matches: matches.length, sent: false });
   }
 
@@ -60,7 +60,7 @@ export async function GET(request: Request) {
   await new Resend(apiKey).emails.send({
     from,
     to,
-    subject: `${matches.length} new match${matches.length === 1 ? "" : "es"} — top score ${matches[0].score}`,
+    subject: `${matches.length} new match${matches.length === 1 ? "" : "es"}, top score ${matches[0].score}`,
     html,
   });
 

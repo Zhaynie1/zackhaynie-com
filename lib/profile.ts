@@ -1,6 +1,6 @@
 /**
  * Everything the job agent needs to know about you, in one place.
- * Edit this file to retarget the agent — you should never need to touch
+ * Edit this file to retarget the agent. You should never need to touch
  * the scoring or scraping code.
  */
 
@@ -17,7 +17,7 @@ not a hands-on programmer: he does not write implementation code, and cannot
 read or author most of it unassisted. What he does is decide what gets built,
 specify it, evaluate whether the output is actually correct, catch it when it
 isn't, and drive it to something that ships. Every project below is real,
-finished, and running — the implementation was produced by AI under his
+finished, and running. The implementation was produced by AI under his
 direction.
 
 What he has shipped:
@@ -26,8 +26,8 @@ What he has shipped:
   6x5 pay-anywhere game whose math model holds a 0.97 return across three bet
   modes with a 25,000x max win and a 1-in-400 bonus rate, verified over
   millions of simulated rounds and passed third-party certification. He owned
-  the specification and the judgement calls — volatility feel, when the math
-  was wrong, when the animation timing read as broken — across the full build.
+  the specification and the judgement calls across the full build: volatility
+  feel, when the math was wrong, when the animation timing read as broken.
 
 - Jarvis, a local-first voice assistant that keeps its identity and memory in
   a Python service rather than in any one model, routes between a local model
@@ -40,10 +40,10 @@ What he has shipped:
 
 He is fluent in the surrounding craft that AI does not do for you: scoping a
 system, reading output critically, debugging by bisecting behaviour, and
-operating the infrastructure — DNS, deployment, environment configuration,
+operating the infrastructure: DNS, deployment, environment configuration,
 API keys, cron, databases.
 
-Looking for: roles built around directing AI to produce software — AI-native
+Looking for: roles built around directing AI to produce software. AI-native
 product work, prompt and agent engineering, technical operations, solutions
 and forward-deployed work, QA of AI output, or a team explicitly hiring
 builders rather than credentialed engineers.`,
@@ -88,7 +88,7 @@ builders rather than credentialed engineers.`,
     "developer",
   ],
 
-  /** Hard exclusions — filtered out before Claude ever sees them (saves tokens). */
+  /** Hard exclusions, filtered out before Claude ever sees them (saves tokens). */
   excludeTitles: [
     "staff",
     "principal",
@@ -107,7 +107,7 @@ builders rather than credentialed engineers.`,
 
   /**
    * Keep postings whose location matches one of these. Matched on word
-   * boundaries — a bare "us" as a substring also matches "Australia".
+   * boundaries. A bare "us" as a substring also matches "Australia".
    * Empty list = keep everything.
    */
   locationKeywords: [
@@ -120,7 +120,7 @@ builders rather than credentialed engineers.`,
   ],
 
   /**
-   * Dropped even if they say "remote" — remote-from-Buenos-Aires is not a
+   * Dropped even if they say "remote". Remote-from-Buenos-Aires is not a
    * role I can take. Checked before locationKeywords.
    */
   excludeLocations: [
@@ -163,7 +163,7 @@ builders rather than credentialed engineers.`,
  * job-boards.greenhouse.io/foo -> {board: "greenhouse", slug: "foo"}.
  *
  * Every slug below was verified against its live API on 2026-07-21. Boards
- * do move — if a company stops showing up, its slug probably changed.
+ * do move. If a company stops showing up, its slug probably changed.
  */
 export type BoardType = "greenhouse" | "lever" | "ashby";
 

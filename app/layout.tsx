@@ -11,11 +11,11 @@ const sans = Inter_Tight({
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
-  title: `${profile.name} — ${profile.headline}`,
+  title: `${profile.name} · ${profile.headline}`,
   description:
     "I ship working software by directing AI. Certified game math, a local-first assistant, and a job agent running live on this site.",
   openGraph: {
-    title: `${profile.name} — ${profile.headline}`,
+    title: `${profile.name} · ${profile.headline}`,
     description:
       "I ship working software by directing AI. See what I've shipped, and watch the job agent run.",
     url: profile.site,

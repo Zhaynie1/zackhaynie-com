@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Palette — light first, dark honored.
+   Palette. Light first, dark honored.
    ============================================================ */
 
 :root {
@@ -660,7 +660,7 @@ h4 {
 }
 
 /* ============================================================
-   Motion — respects reduced-motion
+   Motion. Respects reduced-motion
    ============================================================ */
 
 @keyframes rise {

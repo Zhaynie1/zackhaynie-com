@@ -24,6 +24,6 @@ export async function GET(request: Request) {
     fetched: all.length,
     perCompany: byCompany,
     passedFilters: kept.length,
-    sample: kept.slice(0, 20).map((j) => `${j.company} — ${j.title} (${j.location})`),
+    sample: kept.slice(0, 20).map((j) => `${j.company}: ${j.title} (${j.location})`),
   });
 }

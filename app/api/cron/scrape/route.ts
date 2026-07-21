@@ -13,7 +13,7 @@ import { isAuthorizedCron } from "@/lib/cron-auth";
 /** Scoring N postings with a frontier model takes longer than the default 15s. */
 export const maxDuration = 300;
 
-/** Don't score more than this per run — bounds both runtime and spend. */
+/** Don't score more than this per run. Bounds both runtime and spend. */
 const MAX_PER_RUN = 25;
 
 export async function GET(request: Request) {
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
 
   const started = Date.now();
 
-  // ?rescore=1 wipes stored postings first — for when the prompt changed and
+  // ?rescore=1 wipes stored postings first, for when the prompt changed and
   // old scores are no longer comparable.
   const rescore = new URL(request.url).searchParams.get("rescore") === "1";
   const cleared = rescore ? await deleteAll() : 0;

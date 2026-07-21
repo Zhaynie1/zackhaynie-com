@@ -29,7 +29,7 @@ async function getJson(url: string): Promise<unknown | null> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "zackhaynie.com job agent" },
-      // These are third-party APIs polled on a cron — never serve a cached copy.
+      // These are third-party APIs polled on a cron, so never serve a cached copy.
       cache: "no-store",
       signal: AbortSignal.timeout(15_000),
     });
@@ -105,7 +105,7 @@ export async function fetchAllJobs(): Promise<RawJob[]> {
 
 /**
  * Match `needle` as a whole phrase, not a bare substring. Without this,
- * "us" matches "aUStralia" and "Houston" — which is exactly how a
+ * "us" matches "aUStralia" and "Houston", which is exactly how a
  * Sydney-only role sneaks past a US-only filter.
  */
 function hasPhrase(haystack: string, needle: string): boolean {
@@ -124,7 +124,7 @@ export function prefilter(jobs: RawJob[]): RawJob[] {
     if (!profile.targetTitles.some((t) => title.includes(t))) return false;
 
     const loc = j.location.toLowerCase();
-    // An empty location is usually "remote/unspecified" — keep it and let
+    // An empty location is usually "remote/unspecified", so keep it and let
     // the model decide rather than dropping it silently.
     if (loc) {
       if (profile.excludeLocations.some((k) => hasPhrase(loc, k))) return false;
