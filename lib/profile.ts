@@ -65,27 +65,77 @@ builders rather than credentialed engineers.`,
     "Lua / Roblox",
   ],
 
-  /** Titles worth surfacing. Matched case-insensitively as substrings. */
+  /**
+   * Titles worth surfacing. Matched case-insensitively as substrings.
+   * Deliberately weighted toward roles about directing and operating AI
+   * rather than hand-writing code.
+   */
   targetTitles: [
+    // Directing / operating AI. The core target.
+    "forward deployed",
+    "forward-deployed",
+    "solutions engineer",
+    "solutions architect",
+    "implementation engineer",
+    "implementation specialist",
+    "ai engineer",
+    "applied ai",
+    "prompt engineer",
+    "agent engineer",
+    "ai operations",
+    "ai specialist",
+    "ai trainer",
+    "ai analyst",
+    "model evaluation",
+    "evals",
+    "technical account",
+    "developer advocate",
+    "developer experience",
+    "developer relations",
+    "technical support engineer",
+    "support engineer",
+    "automation engineer",
+    "automation specialist",
+
+    // Small-company generalist roles, where shipping beats credentials.
+    "founding engineer",
+    "member of technical staff",
+    "product engineer",
+    "generalist",
+
+    // Still worth looking at. The scorer decides if they are realistic.
     "software engineer",
     "full stack",
     "fullstack",
     "full-stack",
-    "frontend",
-    "front end",
-    "front-end",
-    "backend",
-    "back end",
-    "back-end",
-    "product engineer",
-    "ai engineer",
-    "applied ai",
-    "forward deployed",
-    "solutions engineer",
-    "game engineer",
+    "game designer",
     "gameplay engineer",
-    "games programmer",
-    "developer",
+  ],
+
+  /**
+   * Scored first when a run has more candidates than it can afford. Without
+   * this the per-run budget gets eaten by whatever the boards happened to
+   * return first, which is usually senior engineering roles.
+   */
+  priorityTitles: [
+    "forward deployed",
+    "forward-deployed",
+    "solutions",
+    "implementation",
+    "applied ai",
+    "ai engineer",
+    "prompt",
+    "agent",
+    "founding",
+    "member of technical staff",
+    "developer advocate",
+    "developer relations",
+    "developer experience",
+    "automation",
+    "ai operations",
+    "ai trainer",
+    "evals",
+    "generalist",
   ],
 
   /** Hard exclusions, filtered out before Claude ever sees them (saves tokens). */
@@ -168,22 +218,38 @@ builders rather than credentialed engineers.`,
 export type BoardType = "greenhouse" | "lever" | "ashby";
 
 export const companies: { name: string; board: BoardType; slug: string }[] = [
+  // AI agent and applied-AI companies. These carry the largest
+  // forward-deployed and solutions orgs, which is the best-fit shape.
   { name: "Anthropic", board: "greenhouse", slug: "anthropic" },
   { name: "OpenAI", board: "ashby", slug: "openai" },
+  { name: "Sierra", board: "ashby", slug: "sierra" },
+  { name: "Decagon", board: "ashby", slug: "decagon" },
+  { name: "Harvey", board: "ashby", slug: "harvey" },
+  { name: "Cognition", board: "ashby", slug: "cognition" },
+  { name: "Cursor", board: "ashby", slug: "cursor" },
+  { name: "Perplexity", board: "ashby", slug: "perplexity" },
+  { name: "ElevenLabs", board: "ashby", slug: "elevenlabs" },
+  { name: "Writer", board: "ashby", slug: "writer" },
+  { name: "Abridge", board: "ashby", slug: "abridge" },
+  { name: "OpenEvidence", board: "ashby", slug: "openevidence" },
+  { name: "Mercor", board: "ashby", slug: "mercor" },
+  { name: "Scale AI", board: "greenhouse", slug: "scaleai" },
+
+  // Builder-culture product companies. More likely to hire on shipped work.
+  { name: "Replit", board: "ashby", slug: "replit" },
+  { name: "Lovable", board: "ashby", slug: "lovable" },
+  { name: "Gamma", board: "ashby", slug: "gamma" },
+  { name: "LangChain", board: "ashby", slug: "langchain" },
+  { name: "Modal", board: "ashby", slug: "modal" },
+  { name: "Browserbase", board: "ashby", slug: "browserbase" },
+  { name: "Zapier", board: "ashby", slug: "zapier" },
   { name: "Vercel", board: "greenhouse", slug: "vercel" },
   { name: "Linear", board: "ashby", slug: "linear" },
-  { name: "Ramp", board: "ashby", slug: "ramp" },
   { name: "Notion", board: "ashby", slug: "notion" },
-  { name: "Figma", board: "greenhouse", slug: "figma" },
-  { name: "Replit", board: "ashby", slug: "replit" },
-  { name: "Perplexity", board: "ashby", slug: "perplexity" },
-  { name: "Sierra", board: "ashby", slug: "sierra" },
-  { name: "ElevenLabs", board: "ashby", slug: "elevenlabs" },
-  { name: "Scale AI", board: "greenhouse", slug: "scaleai" },
-  { name: "Discord", board: "greenhouse", slug: "discord" },
-  { name: "Cloudflare", board: "greenhouse", slug: "cloudflare" },
-  { name: "Stripe", board: "greenhouse", slug: "stripe" },
-  { name: "Databricks", board: "greenhouse", slug: "databricks" },
-  { name: "Spotify", board: "lever", slug: "spotify" },
-  { name: "Shield AI", board: "lever", slug: "shieldai" },
+
+  // Remote-first and unconventional hiring.
+  { name: "GitLab", board: "greenhouse", slug: "gitlab" },
+
+  // Games, on the strength of Hoard.
+  { name: "Roblox", board: "greenhouse", slug: "roblox" },
 ];

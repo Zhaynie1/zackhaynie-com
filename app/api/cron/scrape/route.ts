@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchAllJobs, prefilter } from "@/lib/sources";
+import { fetchAllJobs, prefilter, byPriority } from "@/lib/sources";
 import { scoreAll, modelConfigured, scoreErrors } from "@/lib/score";
 import {
   filterUnseen,
@@ -40,7 +40,10 @@ export async function GET(request: Request) {
   const candidates = prefilter(all);
 
   const unseenIds = await filterUnseen(candidates.map((j) => j.id));
-  const fresh = candidates.filter((j) => unseenIds.has(j.id)).slice(0, MAX_PER_RUN);
+  const fresh = candidates
+    .filter((j) => unseenIds.has(j.id))
+    .sort(byPriority)
+    .slice(0, MAX_PER_RUN);
 
   const fits = await scoreAll(fresh);
 

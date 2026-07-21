@@ -114,6 +114,17 @@ function hasPhrase(haystack: string, needle: string): boolean {
 }
 
 /**
+ * Rank candidates before the per-run budget truncates them. A run can only
+ * afford to score so many, and without this the slots go to whichever boards
+ * happened to respond first, which skews toward large senior-engineering orgs.
+ */
+export function byPriority(a: RawJob, b: RawJob): number {
+  const rank = (j: RawJob) =>
+    profile.priorityTitles.some((t) => j.title.toLowerCase().includes(t)) ? 0 : 1;
+  return rank(a) - rank(b);
+}
+
+/**
  * Deterministic pre-filter. This runs before the model so we never pay
  * tokens to be told that "VP of Sales, Frankfurt" isn't a match.
  */
