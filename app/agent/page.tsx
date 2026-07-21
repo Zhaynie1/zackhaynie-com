@@ -1,180 +1,185 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { topJobs, stats, dbConfigured } from "@/lib/db";
 import { companies, profile } from "@/lib/profile";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Job agent",
+  title: `Job agent — ${profile.name}`,
   description:
-    "A live pipeline that pulls postings from Greenhouse, Lever and Ashby, scores each one with Claude, and drafts outreach.",
+    "A live pipeline that reads job postings across a watchlist of companies, scores them with Claude, and drafts outreach.",
 };
-
-function scoreColor(score: number) {
-  if (score >= 85) return "var(--accent)";
-  if (score >= 70) return "var(--ink)";
-  return "var(--ink-dim)";
-}
 
 function ago(iso: string | null) {
   if (!iso) return "never";
   const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
   if (mins < 1) return "just now";
-  if (mins < 60) return `${mins}m ago`;
+  if (mins < 60) return `${mins} min ago`;
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  return `${Math.floor(hrs / 24)}d ago`;
+  if (hrs < 24) return `${hrs} hr ago`;
+  return `${Math.floor(hrs / 24)} days ago`;
 }
 
 export default async function AgentPage() {
-  const [summary, jobs] = await Promise.all([stats(), topJobs(30)]);
+  const [summary, jobs] = await Promise.all([stats(), topJobs(40)]);
 
   return (
     <>
-      <section className="section" style={{ borderTop: 0, paddingTop: 72 }}>
-        <div className="wrap">
-          <span className="mono eyebrow">Live system</span>
-          <h1 className="display">The job agent</h1>
-          <p className="lede" style={{ marginTop: 24 }}>
-            Every morning this pipeline polls {companies.length} companies&apos;
-            job boards, filters them down, and asks Claude how well each
-            surviving posting actually fits me. This page is its output — not a
-            screenshot of it.
+      <section className="hero">
+        <div className="wrap center stack-md">
+          <p className="t-label">Live system</p>
+          <h1 className="t-hero" style={{ fontSize: "clamp(2.4rem,6vw,4rem)" }}>
+            The job agent
+          </h1>
+          <p className="t-sub measure" style={{ marginInline: "auto" }}>
+            Every morning it reads the public job boards of {companies.length}{" "}
+            companies, narrows them down, and asks Claude how well each survivor
+            actually fits me. This page is its output.
           </p>
-
-          <div className="stat-grid" style={{ marginTop: 44 }}>
-            <div className="stat">
-              <div className="stat-value">{summary.total.toLocaleString()}</div>
-              <div className="stat-label mono">Postings seen</div>
-            </div>
-            <div className="stat">
-              <div className="stat-value">{summary.scored.toLocaleString()}</div>
-              <div className="stat-label mono">Scored by Claude</div>
-            </div>
-            <div className="stat">
-              <div className="stat-value" style={{ color: "var(--accent)" }}>
-                {summary.matches.toLocaleString()}
-              </div>
-              <div className="stat-label mono">Real matches (70+)</div>
-            </div>
-            <div className="stat">
-              <div className="stat-value">{summary.companies}</div>
-              <div className="stat-label mono">Companies</div>
-            </div>
-          </div>
-
-          <p className="mono" style={{ marginTop: 16, color: "var(--ink-dim)" }}>
+          <p className="t-label" style={{ marginTop: 8 }}>
             Last run {ago(summary.lastRun)}
           </p>
         </div>
       </section>
 
-      {/* ---------- how it works ---------- */}
-      <section className="section">
+      <section className="section-tight">
         <div className="wrap">
-          <span className="mono eyebrow">How it works</span>
-          <ol className="steps">
-            <li>
-              <strong>Collect.</strong> A scheduled job hits the public posting
-              APIs for Greenhouse, Lever and Ashby. No scraping, no headless
-              browser — these boards publish clean JSON, and a dead board never
-              takes down the run.
-            </li>
-            <li>
-              <strong>Filter cheaply first.</strong> Title matching, location
-              matching, and a dedup against everything already stored. There is
-              no reason to spend model tokens learning that &ldquo;VP of
-              Sales&rdquo; is a bad fit.
-            </li>
-            <li>
-              <strong>Score what survives.</strong> Each new posting goes to
-              Claude with a strict output schema: a 0&ndash;100 fit score, the
-              specific reasons, and a two-sentence opener that has to cite
-              something concrete from the posting.
-            </li>
-            <li>
-              <strong>Digest, don&apos;t spam.</strong> Anything scoring{" "}
-              {profile.scoreThreshold}+ lands in a daily email. The agent drafts;
-              it never sends on my behalf. Auto-applying at volume is how you
-              become noise.
-            </li>
-          </ol>
+          <div className="stats">
+            <div className="stat">
+              <div className="stat-n">{summary.total.toLocaleString()}</div>
+              <div className="stat-l">Postings read</div>
+            </div>
+            <div className="stat">
+              <div className="stat-n">{summary.scored.toLocaleString()}</div>
+              <div className="stat-l">Scored by Claude</div>
+            </div>
+            <div className="stat">
+              <div className="stat-n">{summary.matches.toLocaleString()}</div>
+              <div className="stat-l">Real matches</div>
+            </div>
+            <div className="stat">
+              <div className="stat-n">{summary.companies}</div>
+              <div className="stat-l">Companies watched</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ---------- results ---------- */}
-      <section className="section">
+      <section className="section-tight">
+        <div className="wrap wrap-narrow">
+          <p className="t-label" style={{ marginBottom: 18 }}>
+            How it works
+          </p>
+          <div className="prose">
+            <p>
+              <strong>Collect.</strong> A scheduled job hits the public posting
+              APIs for Greenhouse, Lever and Ashby. No scraping and no headless
+              browser — those boards publish clean JSON, and one dead board never
+              takes down the run.
+            </p>
+            <p>
+              <strong>Filter cheaply first.</strong> Title, location, and a check
+              against everything already seen. Around 4,500 postings become about
+              37. There is no reason to spend model tokens learning that a
+              Director of Sales role is a bad fit.
+            </p>
+            <p>
+              <strong>Score what survives.</strong> Each new posting goes to
+              Claude with a strict schema — a 0–100 score, the specific reasons,
+              and a draft opener. The prompt is told exactly what I can and
+              can&apos;t do, including that I don&apos;t write code, so it scores
+              hands-on engineering roles low on purpose.
+            </p>
+            <p>
+              <strong>Draft, never send.</strong> Matches land in a daily digest.
+              The agent has never sent an email on my behalf and isn&apos;t
+              wired to. Auto-applying at volume is how you become noise.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-tight">
         <div className="wrap">
-          <span className="mono eyebrow">Top matches</span>
+          <p className="t-label" style={{ marginBottom: 20 }}>
+            Every posting it scored
+          </p>
 
-          {!dbConfigured && (
+          {jobs.length === 0 && (
             <div className="notice">
-              <p style={{ margin: 0 }}>
-                No database connected yet. Set <code>DATABASE_URL</code> and{" "}
-                <code>ANTHROPIC_API_KEY</code> in your environment, then hit{" "}
-                <code>/api/cron/scrape</code> to populate this page. See{" "}
-                <code>SETUP.md</code> for the walkthrough.
-              </p>
-            </div>
-          )}
-
-          {dbConfigured && jobs.length === 0 && (
-            <div className="notice">
-              <p style={{ margin: 0 }}>
-                Database is connected but the agent hasn&apos;t run yet. Trigger
-                it with <code>curl /api/cron/scrape</code>, or wait for the next
-                scheduled run.
-              </p>
+              {dbConfigured
+                ? "No completed run yet. Check back shortly."
+                : "Agent not configured in this environment."}
             </div>
           )}
 
           {jobs.map((job) => (
-            <article className="job" key={job.id}>
-              <div className="job-head">
+            <article className="match" key={job.id}>
+              <div className="match-top">
                 <div>
-                  <div className="mono" style={{ color: "var(--ink-dim)" }}>
+                  <div className="match-co">
                     {job.company} · {job.location || "Location unspecified"} ·
                     found {ago(job.found_at)}
                   </div>
-                  <h3
-                    className="display"
-                    style={{ fontSize: "1.2rem", margin: "6px 0 0" }}
-                  >
-                    <a
-                      href={job.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ textDecoration: "none" }}
-                    >
-                      {job.title} ↗
+                  <h3 className="match-title">
+                    <a href={job.url} target="_blank" rel="noopener noreferrer">
+                      {job.title}
                     </a>
                   </h3>
                 </div>
                 <div
-                  className="score"
-                  style={{ color: scoreColor(job.score ?? 0) }}
+                  className={`score${(job.score ?? 0) >= 70 ? " score-high" : ""}`}
                 >
                   {job.score}
                 </div>
               </div>
 
-              {job.verdict && (
-                <p style={{ margin: "14px 0 0", color: "var(--ink-mid)" }}>
-                  {job.verdict}
-                </p>
-              )}
+              {job.verdict && <p>{job.verdict}</p>}
 
               {job.reasons && job.reasons.length > 0 && (
-                <ul>
+                <ul
+                  style={{
+                    margin: "14px 0 0",
+                    paddingLeft: 20,
+                    fontSize: "0.9375rem",
+                    lineHeight: 1.6,
+                    color: "var(--ink-2)",
+                  }}
+                >
                   {job.reasons.map((r, i) => (
-                    <li key={i}>{r}</li>
+                    <li key={i} style={{ marginBottom: 6 }}>
+                      {r}
+                    </li>
                   ))}
                 </ul>
               )}
 
-              {job.opener && <p className="opener">{job.opener}</p>}
+              {job.opener && (
+                <div className="opener">
+                  <span className="t-label">Drafted opener</span>
+                  {job.opener}
+                </div>
+              )}
             </article>
           ))}
+
+          <p className="center" style={{ marginTop: 40 }}>
+            <Link href="/#top" className="link-arrow">
+              <span aria-hidden>←</span> Back to the work
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="contact">
+        <div className="wrap stack-md">
+          <h2 className="t-section">Hiring?</h2>
+          <p>
+            <a href={`mailto:${profile.email}`} className="email-xl">
+              {profile.email}
+            </a>
+          </p>
         </div>
       </section>
     </>

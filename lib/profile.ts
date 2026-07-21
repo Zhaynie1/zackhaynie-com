@@ -6,33 +6,47 @@
 
 export const profile = {
   name: "Zack Haynie",
-  headline: "Software engineer — game systems, AI automation, full-stack",
+  headline: "I ship software by directing AI",
   location: "Shawnee, Oklahoma (open to remote)",
   email: "zack@zackhaynie.com",
   site: "https://zackhaynie.com",
 
   /** Fed to Claude as the "who is this candidate" context when scoring roles. */
-  summary: `Self-taught software engineer who ships complete products end to end.
+  summary: `Zack Haynie ships working software by directing AI coding agents. He is
+not a hands-on programmer: he does not write implementation code, and cannot
+read or author most of it unassisted. What he does is decide what gets built,
+specify it, evaluate whether the output is actually correct, catch it when it
+isn't, and drive it to something that ships. Every project below is real,
+finished, and running — the implementation was produced by AI under his
+direction.
 
-Built and certified three real-money-grade slot games on the Stake Engine
-platform — each one is a Python math engine (millions of simulated rounds,
-RTP tuned to 0.97 across three bet modes, 25,000x max win, lookup-table
-optimization) paired with a Svelte + PixiJS WebGL front end that renders the
-results at 60fps. That means comfort with: simulation, probability, numerical
-optimization, real-time graphics, state machines, and a strict spec that has
-to survive third-party certification.
+What he has shipped:
 
-Also built Jarvis, a local-first voice assistant: FastAPI service that owns
-identity and memory, routes between a local Ollama model and the Claude API
-based on request type, and keeps a Chroma vector store of past conversations
-so the assistant persists across model swaps.
+- Three slot games on the Stake Engine platform, including Sakura Storm: a
+  6x5 pay-anywhere game whose math model holds a 0.97 return across three bet
+  modes with a 25,000x max win and a 1-in-400 bonus rate, verified over
+  millions of simulated rounds and passed third-party certification. He owned
+  the specification and the judgement calls — volatility feel, when the math
+  was wrong, when the animation timing read as broken — across the full build.
 
-And this site's job agent — a scheduled pipeline that pulls live postings from
-Greenhouse, Lever, and Ashby job boards, scores each one against my profile
-with Claude, and drafts tailored outreach. It is running right now.
+- Jarvis, a local-first voice assistant that keeps its identity and memory in
+  a Python service rather than in any one model, routes between a local model
+  and a cloud model by request type, and holds a vector store of past
+  conversations so it survives model swaps.
 
-Looking for: engineering roles where I own a system end to end. Strongest on
-TypeScript, Python, and applied-AI plumbing (agents, RAG, tool use, evals).`,
+- The job agent running on this site: it polls public job-board APIs across a
+  watchlist of companies, filters ~4,500 postings down to a few dozen, scores
+  those with Claude against this profile, and drafts outreach.
+
+He is fluent in the surrounding craft that AI does not do for you: scoping a
+system, reading output critically, debugging by bisecting behaviour, and
+operating the infrastructure — DNS, deployment, environment configuration,
+API keys, cron, databases.
+
+Looking for: roles built around directing AI to produce software — AI-native
+product work, prompt and agent engineering, technical operations, solutions
+and forward-deployed work, QA of AI output, or a team explicitly hiring
+builders rather than credentialed engineers.`,
 
   /** Skills the agent should treat as strong matches. */
   skills: [

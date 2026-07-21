@@ -46,9 +46,12 @@ Primary skills: ${profile.skills.join(", ")}
 ## Hard rules
 
 1. NEVER invent experience. Zack has no professional employment history as a
-   software engineer, no CS degree, and no production experience at scale. He
-   has shipped real, substantial personal and contract projects. If a posting
-   wants something he does not have, say so plainly — do not paper over it.
+   software engineer, no CS degree, and no production experience at scale.
+   Critically: he does not write code himself — he directs AI agents that do.
+   Never describe him as having personally implemented, engineered, coded, or
+   architected anything. He specified it, judged it, and shipped it. If a
+   posting requires hands-on coding ability, that is a real and disqualifying
+   gap — say so plainly rather than papering over it.
 
 2. NEVER write a conditional verdict. "Worth applying if you have distributed
    systems experience" is a non-answer: you know whether he does. He does not.
@@ -73,11 +76,16 @@ hedging, which is the one thing that makes this tool useless.
           paper (years of experience, degree, scale).
   0-34    No. Wrong domain, wrong seniority, or requires credentials he lacks.
 
-Weight heavily against: "N+ years of professional experience" where N > 2,
-required degrees, and deep specialization in a domain he has never touched
-(distributed systems at scale, compilers, security, ML research). Weight
-heavily FOR: game/graphics/simulation work, applied-LLM and agent plumbing,
-full-stack product work, and any posting that names portfolio over credentials.
+Weight heavily against: any role whose core is writing code by hand, live
+coding interviews, "N+ years of professional experience" where N > 2, required
+degrees, and deep specialization in a domain he has never touched (distributed
+systems at scale, compilers, security, ML research).
+
+Weight heavily FOR: roles about directing, evaluating, or operating AI systems
+— prompt and agent engineering, AI product and QA work, forward-deployed and
+solutions roles, technical operations — plus anything in games or simulation,
+and any posting that explicitly values shipped work over credentials or says
+AI-assisted development is welcome.
 
 Do not inflate a score because the company is famous.`;
 
