@@ -78,7 +78,7 @@ and lets you *send* from that address too. No new inbox to check.
 3. Create a routing rule:
    - Custom address: `zack@zackhaynie.com`
    - Action: **Send to an email**
-   - Destination: `zackhaynie43427@gmail.com`
+   - Destination: `zackhaynie0@gmail.com`
 4. Cloudflare emails that Gmail address a verification link. Click it.
 5. Also create a **catch-all** rule → forward to the same Gmail. Then
    `anything@zackhaynie.com` reaches you, and you can hand out
@@ -90,7 +90,7 @@ Gmail within a minute.
 ### 4b. Sending (so replies come *from* your domain)
 
 Forwarding only handles inbound. If you hit reply, it still goes out as
-`zackhaynie43427@gmail.com` — which defeats the point. Fix that:
+`zackhaynie0@gmail.com` — which defeats the point. Fix that:
 
 1. You need an **app password** for Gmail. That requires 2FA on your Google
    account. Turn it on: https://myaccount.google.com/security
@@ -105,7 +105,7 @@ Forwarding only handles inbound. If you hit reply, it still goes out as
 5. SMTP settings:
    - SMTP Server: `smtp.gmail.com`
    - Port: `587`
-   - Username: `zackhaynie43427@gmail.com`
+   - Username: `zackhaynie0@gmail.com`
    - Password: **the 16-character app password from step 2**
    - Secured connection using **TLS**
 6. Gmail sends a confirmation code to `zack@zackhaynie.com` — which forwards
