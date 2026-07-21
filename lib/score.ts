@@ -50,6 +50,16 @@ const client = modelConfigured ? new Anthropic() : null;
 /** Populated when a scoring call throws, so the cron route can report why. */
 export const scoreErrors: string[] = [];
 
+/**
+ * Error messages from the SDK can quote the request — including the API key.
+ * Never let one reach an HTTP response body or a log line intact.
+ */
+function redact(msg: string): string {
+  return msg
+    .replace(/sk-ant-[A-Za-z0-9_-]+/g, "sk-ant-***REDACTED***")
+    .replace(/postgres(?:ql)?:\/\/[^\s"']+/gi, "postgres://***REDACTED***");
+}
+
 export async function scoreJob(job: RawJob): Promise<Fit | null> {
   if (!client) {
     scoreErrors.push("ANTHROPIC_API_KEY is not set");
@@ -85,9 +95,9 @@ ${job.description || "(no description provided)"}`,
     }
     return response.parsed_output ?? null;
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error(`scoring failed for ${job.id}:`, err);
-    scoreErrors.push(msg.slice(0, 400));
+    const msg = redact(err instanceof Error ? err.message : String(err));
+    console.error(`scoring failed for ${job.id}: ${msg}`);
+    scoreErrors.push(msg.slice(0, 300));
     return null;
   }
 }
