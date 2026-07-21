@@ -36,11 +36,12 @@ export const projects: Project[] = [
     stack: ["Stake Engine", "Python", "TypeScript", "Svelte", "PixiJS"],
     body: [
       "Slot math is a constrained optimization problem. You are given a target return, a hit frequency, a max win cap and a volatility profile, and the reel set and payout table have to satisfy all four at once. Then it has to survive an audit by someone whose job is to find where you got it wrong.",
-      "I specified the game and drove it to certification. The judgement calls were mine: how volatile it should feel, when the numbers coming back were wrong rather than merely surprising, when a cascade animation read as broken instead of dramatic, and when it was actually finished.",
+      "The first thing I did was go to Stake and confirm exactly what the math had to hit, rather than assume it and find out later. It still failed their checks three times before it passed. Each time their RTP output came back and told me what was off, and it went another round.",
+      "The front end had its own problem: spins would freeze partway through. That one mattered more than it looked. A slot that stalls mid-spin loses the player, and you do not get their attention back. I narrowed down where the freeze was happening and had it fixed inside an hour.",
       "Certification is a useful forcing function, because it removes the option of \"close enough.\" A payout distribution is either provably correct across millions of rounds or it does not ship. Getting there meant a lot of runs where the answer was no.",
       "It has passed both front end and math certification. It is now in final platform review ahead of release, and I will link it here the day it goes live.",
     ],
-    role: "Specified the game, tuned the model against certification targets, and owned the call on when it was correct. Implementation produced by AI under my direction.",
+    role: "Confirmed the math requirements with Stake up front, ran the model back through certification until it passed, and caught and fixed the spin freeze. Art, code and math were all AI-generated under my direction.",
 
     // On release: replace `pending` with
     //   live: { label: "Play it on Stake Engine", href: "https://..." },
