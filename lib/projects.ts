@@ -18,6 +18,13 @@ export type Project = {
    * derives the dimensions and a blur placeholder at build time. */
   shot?: { src: StaticImageData; alt: string; caption: string };
   /**
+   * One thing that went wrong and how it was caught. This is the answer to the
+   * obvious objection: if AI writes it and he can't read the code, how does he
+   * know it's any good? Collapsed by default so it doesn't tax a skimmer, and
+   * rendered as a native <details> so it opens with no JavaScript.
+   */
+  buildNote?: { title: string; body: string[] };
+  /**
    * A public, third-party-hosted place to go play or see the thing. This is
    * the strongest proof there is, so it renders as the primary button.
    * On launch day, fill this in and delete `pending` below.
@@ -43,7 +50,7 @@ export const projects: Project[] = [
     body: [
       "Slot math is a constrained optimization problem. You are given a target return, a hit frequency, a max win cap and a volatility profile, and the reel set and payout table have to satisfy all four at once. Then it has to survive an audit by someone whose job is to find where you got it wrong.",
       "The first thing I did was go to Stake and confirm exactly what the math had to hit, rather than assume it and find out later. It still failed their checks three times before it passed. Each time their RTP output came back and told me what was off, and it went another round.",
-      "The front end had its own problem: spins would freeze partway through. That one mattered more than it looked. A slot that stalls mid-spin loses the player, and you do not get their attention back. I narrowed down where the freeze was happening and had it fixed inside an hour.",
+      "The front end had its own problem: spins would freeze partway through. That one mattered more than it looked, because a slot that stalls mid-spin loses the player and you do not get their attention back. The note below is how I found it.",
       "Certification is a useful forcing function, because it removes the option of \"close enough.\" A payout distribution is either provably correct across millions of rounds or it does not ship. Getting there meant a lot of runs where the answer was no.",
       "It has passed both front end and math certification. It is now in final platform review ahead of release, and I will link it here the day it goes live.",
     ],
@@ -54,6 +61,16 @@ export const projects: Project[] = [
       alt: "Sakura Storm mid free-spin round. A 6 by 5 grid of ramen, mochi, onigiri, ninja, oni mask, fox and dragon symbols inside a red torii gate frame, set against a night sky with cherry blossoms and floating lanterns. The header reads FREE SPINS 4 OF 15 with a tumble win counter and a 1x multiplier.",
       caption:
         "Free spins round, 4 of 15, showing the tumble win counter and multiplier. Every symbol and background was AI-generated to a brief.",
+    },
+
+    buildNote: {
+      title: "How I found the spin freeze",
+      body: [
+        "Spins would stall partway through the animation and never resolve. When it did not stall outright, symbols would break mid-cascade and the tumble chain would stop early, so a winning sequence just ended instead of paying out the way the model said it should.",
+        "Either failure is worse than it sounds. A slot that hangs mid-spin loses the player's attention, and you do not get it back. It reads as broken software at the exact moment the player is waiting to find out whether they won.",
+        "Locating it was elimination rather than a guess. The math model had not been touched, so it could not have changed behaviour. Every change in that window was in the front end spin logic, which meant the fault had to be in the code driving the animation and not the model underneath it. The payout numbers were still correct. Only the presentation of them was failing. That reduced the search from somewhere in the game to a specific layer, and from there it was a matter of finding which step in the sequence never fired.",
+        "Fixed within an hour of identifying it.",
+      ],
     },
 
     // On release: replace `pending` with

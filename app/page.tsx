@@ -45,6 +45,20 @@ function FeaturedProject({ project }: { project: Project }) {
         </p>
       )}
 
+      {project.buildNote && (
+        <details className="note">
+          <summary>
+            <span className="note-tag">Build note</span>
+            {project.buildNote.title}
+          </summary>
+          <div className="note-body">
+            {project.buildNote.body.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </details>
+      )}
+
       {project.facts && (
         <dl className="facts">
           {project.facts.map((f) => (
