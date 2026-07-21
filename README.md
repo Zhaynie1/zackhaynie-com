@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# zackhaynie.com
 
-## Getting Started
+Portfolio site plus a live job agent, in one Next.js app.
 
-First, run the development server:
+The agent polls 18 companies' public job boards, filters them down
+deterministically, scores the survivors against my profile with Claude, and
+publishes the results at `/agent`. It is the portfolio piece and the job search
+at the same time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Layout
+
+```
+app/
+  page.tsx              portfolio homepage
+  agent/page.tsx        live dashboard for the job agent
+  api/cron/scrape       fetch -> filter -> score -> store   (daily)
+  api/cron/digest       email the day's matches             (daily)
+  api/jobs              public JSON of what's been found
+  api/preview           dry run: fetch + filter, no model, no writes
+lib/
+  profile.ts            you, your filters, and the company watchlist
+  projects.ts           portfolio content
+  sources.ts            Greenhouse / Lever / Ashby clients + prefilter
+  score.ts              Claude scoring with a strict output schema
+  db.ts                 Postgres (Neon)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How the funnel works
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Measured on a real run: **4,536 postings fetched → 37 passed the deterministic
+filters → those 37 go to the model.** Cheap filters first is the whole trick;
+paying a frontier model to reject "VP of Sales, Sydney" 4,499 times would be
+silly.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Scoring uses `client.messages.parse()` with a Zod schema, so the response is
+guaranteed to contain a numeric score, structured reasons, and a draft opener —
+no string parsing, no retries on malformed JSON.
 
-## Learn More
+The agent **drafts but never sends**. Auto-applying at volume is spam.
 
-To learn more about Next.js, take a look at the following resources:
+## Running it
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Works with zero environment variables — the portfolio renders and the agent
+page shows an empty state. See **[SETUP.md](./SETUP.md)** for the full
+walkthrough: domain, Vercel, email, database, API keys.
 
-## Deploy on Vercel
+## Environment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Required for | Notes |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Scoring | console.anthropic.com |
+| `DATABASE_URL` | Storing results | Neon pooled connection string |
+| `CRON_SECRET` | Protecting cron routes | Any long random string |
+| `RESEND_API_KEY` | Digest email | Optional |
+| `DIGEST_FROM` / `DIGEST_TO` | Digest email | Optional |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stack
+
+Next.js 16 (App Router, Turbopack) · TypeScript · Anthropic SDK ·
+Zod · Neon Postgres · Resend · Vercel Cron

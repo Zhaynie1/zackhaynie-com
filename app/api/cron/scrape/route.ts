@@ -1,0 +1,53 @@
+import { NextResponse } from "next/server";
+import { fetchAllJobs, prefilter } from "@/lib/sources";
+import { scoreAll, modelConfigured } from "@/lib/score";
+import { filterUnseen, insertJob, dbConfigured } from "@/lib/db";
+import { isAuthorizedCron } from "@/lib/cron-auth";
+
+/** Scoring N postings with a frontier model takes longer than the default 15s. */
+export const maxDuration = 300;
+
+/** Don't score more than this per run — bounds both runtime and spend. */
+const MAX_PER_RUN = 25;
+
+export async function GET(request: Request) {
+  if (!isAuthorizedCron(request)) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  if (!dbConfigured || !modelConfigured) {
+    return NextResponse.json(
+      { error: "DATABASE_URL and ANTHROPIC_API_KEY must both be set" },
+      { status: 503 },
+    );
+  }
+
+  const started = Date.now();
+
+  const all = await fetchAllJobs();
+  const candidates = prefilter(all);
+
+  const unseenIds = await filterUnseen(candidates.map((j) => j.id));
+  const fresh = candidates.filter((j) => unseenIds.has(j.id)).slice(0, MAX_PER_RUN);
+
+  const fits = await scoreAll(fresh);
+
+  for (const job of fresh) {
+    const fit = fits.get(job.id);
+    await insertJob({
+      ...job,
+      score: fit?.score ?? null,
+      verdict: fit?.verdict ?? null,
+      reasons: fit?.reasons ?? null,
+      opener: fit?.opener ?? null,
+    });
+  }
+
+  return NextResponse.json({
+    ok: true,
+    fetched: all.length,
+    passedFilters: candidates.length,
+    new: fresh.length,
+    scored: fits.size,
+    ms: Date.now() - started,
+  });
+}
