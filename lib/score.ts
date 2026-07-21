@@ -33,6 +33,32 @@ const FitSchema = z.object({
 
 export type Fit = z.infer<typeof FitSchema>;
 
+/**
+ * The style rule in the prompt gets followed most of the time, which is not
+ * the same as always. Strip dashes deterministically so none reach the page.
+ *   "end-to-end — from Jarvis"  ->  "end-to-end, from Jarvis"
+ *   "a 0–100 score"             ->  "a 0 to 100 score"
+ * Hyphens in compounds (end-to-end, 0-1, third-party) are left alone.
+ */
+function stripDashes(s: string): string {
+  return s
+    .replace(/(\d)\s*[—–]\s*(\d)/g, "$1 to $2")
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s*–\s*/g, ", ")
+    .replace(/,\s*,/g, ",")
+    .replace(/\s+([,.])/g, "$1")
+    .trim();
+}
+
+function clean(fit: Fit): Fit {
+  return {
+    ...fit,
+    verdict: stripDashes(fit.verdict),
+    reasons: fit.reasons.map(stripDashes),
+    opener: stripDashes(fit.opener),
+  };
+}
+
 const SYSTEM = `You are screening job postings for ONE specific engineer, Zack Haynie.
 His full background is below. You are not advising a generic candidate. You
 know exactly who this is, so judge decisively.
@@ -145,7 +171,7 @@ ${job.description || "(no description provided)"}`,
         `no parsed_output (stop_reason=${response.stop_reason})`,
       );
     }
-    return response.parsed_output ?? null;
+    return response.parsed_output ? clean(response.parsed_output) : null;
   } catch (err) {
     const msg = redact(err instanceof Error ? err.message : String(err));
     console.error(`scoring failed for ${job.id}: ${msg}`);
