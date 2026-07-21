@@ -134,6 +134,10 @@ export function prefilter(jobs: RawJob[]): RawJob[] {
     if (profile.excludeTitles.some((t) => hasPhrase(title, t.trim()))) return false;
     if (!profile.targetTitles.some((t) => title.includes(t))) return false;
 
+    // Boards often put the country in the title rather than the location
+    // field, e.g. "Senior Solutions Architect, Global SI (India)".
+    if (profile.excludeLocations.some((k) => hasPhrase(title, k))) return false;
+
     const loc = j.location.toLowerCase();
     // An empty location is usually "remote/unspecified", so keep it and let
     // the model decide rather than dropping it silently.
