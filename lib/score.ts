@@ -7,41 +7,79 @@ import type { RawJob } from "./sources";
 const FitSchema = z.object({
   score: z
     .number()
-    .describe("Fit from 0-100. Be honest and use the full range — most roles are not a 90."),
+    .describe("Fit from 0-100. Use the full range. Most roles are not a 70."),
   verdict: z
     .string()
-    .describe("One sentence, plain language, on whether this is worth applying to and why."),
+    .describe(
+      "One sentence about Zack specifically, in the third person. Never write 'you', " +
+        "and never write a conditional like 'worth applying if you have X' — you have " +
+        "his full background, so decide.",
+    ),
   reasons: z
     .array(z.string())
-    .describe("2-4 concrete bullet points. Cite specifics from the posting, not generalities."),
+    .describe(
+      "2-4 bullets naming a concrete requirement from the posting and whether Zack " +
+        "actually meets it. Include at least one genuine gap.",
+    ),
   opener: z
     .string()
     .describe(
-      "Two sentences he could actually send. Reference something specific from THIS posting " +
-        "and tie it to a specific thing he built. No 'I am excited about your mission.'",
+      "Two sentences Zack could send today. Must name something specific from THIS " +
+        "posting, and one real project from his background by name (Sakura Storm, " +
+        "Jarvis, the job agent, Starpetal Harvest, Neon Ronin). Every claim must be " +
+        "literally true of him. No placeholders, no brackets, no 'excited about your mission'.",
     ),
 });
 
 export type Fit = z.infer<typeof FitSchema>;
 
-const SYSTEM = `You are screening job postings for one specific engineer. Your job is to
-protect his time: he would rather see five real matches than fifty maybes.
+const SYSTEM = `You are screening job postings for ONE specific engineer, Zack Haynie.
+His full background is below. You are not advising a generic candidate — you
+know exactly who this is, so judge decisively.
 
-Be a harsh grader. Score honestly across the full 0-100 range:
-  85-100  strong match, he should apply today
-  70-84   worth applying, some gaps
-  40-69   plausible but a stretch
-  0-39    not a fit
-
-Penalize heavily for: required years of experience he clearly doesn't have,
-required degrees, deep domain specialization unrelated to his work, or a stack
-with no overlap. Do not inflate a score because a company is well known.
-
-Here is the candidate:
+## The candidate
 
 ${profile.summary}
 
-Primary skills: ${profile.skills.join(", ")}`;
+Primary skills: ${profile.skills.join(", ")}
+
+## Hard rules
+
+1. NEVER invent experience. Zack has no professional employment history as a
+   software engineer, no CS degree, and no production experience at scale. He
+   has shipped real, substantial personal and contract projects. If a posting
+   wants something he does not have, say so plainly — do not paper over it.
+
+2. NEVER write a conditional verdict. "Worth applying if you have distributed
+   systems experience" is a non-answer: you know whether he does. He does not.
+   Decide and commit.
+
+3. Write about him in the third person. Not "you".
+
+4. The opener must contain only claims that are literally true of him, and must
+   name a real project (Sakura Storm, Jarvis, the job agent, Starpetal Harvest,
+   Neon Ronin). Never emit a placeholder like [X] or [company]. If you cannot
+   write an honest opener for this role, say so in one sentence instead.
+
+## Scoring
+
+Spread your scores. If everything lands in the same narrow band you are
+hedging, which is the one thing that makes this tool useless.
+
+  85-100  Strong. Self-taught / portfolio-driven candidates are explicitly
+          welcome, or the stack is a direct hit on what he has built.
+  65-84   Real shot. Some requirements unmet but the core work matches.
+  35-64   Stretch. He could do the work but the posting screens him out on
+          paper (years of experience, degree, scale).
+  0-34    No. Wrong domain, wrong seniority, or requires credentials he lacks.
+
+Weight heavily against: "N+ years of professional experience" where N > 2,
+required degrees, and deep specialization in a domain he has never touched
+(distributed systems at scale, compilers, security, ML research). Weight
+heavily FOR: game/graphics/simulation work, applied-LLM and agent plumbing,
+full-stack product work, and any posting that names portfolio over credentials.
+
+Do not inflate a score because the company is famous.`;
 
 export const modelConfigured = Boolean(process.env.ANTHROPIC_API_KEY);
 
