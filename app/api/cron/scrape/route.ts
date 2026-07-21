@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import { fetchAllJobs, prefilter } from "@/lib/sources";
 import { scoreAll, modelConfigured, scoreErrors } from "@/lib/score";
-import { filterUnseen, insertJob, deleteUnscored, dbConfigured } from "@/lib/db";
+import {
+  filterUnseen,
+  insertJob,
+  deleteUnscored,
+  deleteAll,
+  dbConfigured,
+} from "@/lib/db";
 import { isAuthorizedCron } from "@/lib/cron-auth";
 
 /** Scoring N postings with a frontier model takes longer than the default 15s. */
@@ -23,7 +29,12 @@ export async function GET(request: Request) {
 
   const started = Date.now();
 
-  const retried = await deleteUnscored();
+  // ?rescore=1 wipes stored postings first — for when the prompt changed and
+  // old scores are no longer comparable.
+  const rescore = new URL(request.url).searchParams.get("rescore") === "1";
+  const cleared = rescore ? await deleteAll() : 0;
+
+  const retried = rescore ? 0 : await deleteUnscored();
 
   const all = await fetchAllJobs();
   const candidates = prefilter(all);
@@ -50,6 +61,7 @@ export async function GET(request: Request) {
     passedFilters: candidates.length,
     new: fresh.length,
     requeued: retried,
+    cleared,
     scored: fits.size,
     // Surfaced so a failing run is diagnosable without digging through logs.
     errors: [...new Set(scoreErrors)].slice(0, 3),

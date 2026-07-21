@@ -65,6 +65,17 @@ export async function deleteUnscored(): Promise<number> {
   return rows.length;
 }
 
+/**
+ * Wipe every stored posting so the next run re-scores from scratch. Used when
+ * the scoring prompt changes and old scores are no longer comparable.
+ */
+export async function deleteAll(): Promise<number> {
+  if (!sql) return 0;
+  await initSchema();
+  const rows = (await sql`DELETE FROM jobs RETURNING id`) as { id: string }[];
+  return rows.length;
+}
+
 /** Returns the ids that are NOT already in the table. */
 export async function filterUnseen(ids: string[]): Promise<Set<string>> {
   if (!sql || ids.length === 0) return new Set(ids);
