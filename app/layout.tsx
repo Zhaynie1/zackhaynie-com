@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import { profile } from "@/lib/profile";
+import { NavAnchor } from "./nav-anchor";
 import "./globals.css";
 
 const sans = Inter_Tight({
@@ -32,16 +33,16 @@ export default function RootLayout({
       <body>
         <header className="nav">
           <div className="wrap nav-inner">
-            <a href="#top" className="nav-brand">
+            <NavAnchor id="top" className="nav-brand">
               {profile.name}
-            </a>
+            </NavAnchor>
             <nav className="nav-links">
-              <a href="#work" className="nav-hide-sm">
+              <NavAnchor id="work" className="nav-hide-sm">
                 Work
-              </a>
-              <a href="#agent" className="nav-hide-sm">
+              </NavAnchor>
+              <NavAnchor id="agent" className="nav-hide-sm">
                 Agent
-              </a>
+              </NavAnchor>
               <a href={`mailto:${profile.email}`} className="btn btn-primary btn-sm">
                 Email me
               </a>
