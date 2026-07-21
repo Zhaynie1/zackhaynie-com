@@ -47,8 +47,14 @@ export const modelConfigured = Boolean(process.env.ANTHROPIC_API_KEY);
 
 const client = modelConfigured ? new Anthropic() : null;
 
+/** Populated when a scoring call throws, so the cron route can report why. */
+export const scoreErrors: string[] = [];
+
 export async function scoreJob(job: RawJob): Promise<Fit | null> {
-  if (!client) return null;
+  if (!client) {
+    scoreErrors.push("ANTHROPIC_API_KEY is not set");
+    return null;
+  }
   try {
     const response = await client.messages.parse({
       model: "claude-opus-4-8",
@@ -72,9 +78,16 @@ ${job.description || "(no description provided)"}`,
         },
       ],
     });
+    if (!response.parsed_output) {
+      scoreErrors.push(
+        `no parsed_output (stop_reason=${response.stop_reason})`,
+      );
+    }
     return response.parsed_output ?? null;
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
     console.error(`scoring failed for ${job.id}:`, err);
+    scoreErrors.push(msg.slice(0, 400));
     return null;
   }
 }

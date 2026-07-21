@@ -51,6 +51,20 @@ export async function initSchema() {
   initialized = true;
 }
 
+/**
+ * Drop rows we stored but never managed to score. Without this, a run that
+ * fails at the scoring step poisons those postings forever — they'd count as
+ * "seen" and never be retried.
+ */
+export async function deleteUnscored(): Promise<number> {
+  if (!sql) return 0;
+  await initSchema();
+  const rows = (await sql`
+    DELETE FROM jobs WHERE score IS NULL RETURNING id
+  `) as { id: string }[];
+  return rows.length;
+}
+
 /** Returns the ids that are NOT already in the table. */
 export async function filterUnseen(ids: string[]): Promise<Set<string>> {
   if (!sql || ids.length === 0) return new Set(ids);
