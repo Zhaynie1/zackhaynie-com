@@ -136,9 +136,16 @@ use.
 ### 5b. Claude API key
 
 1. https://console.anthropic.com → **API keys** → **Create key**.
-2. Add **$5** of credit under Billing. That is a lot of scoring — each posting
-   costs well under a cent, and the deterministic filters mean only ~30 of
-   4,500 postings ever reach the model.
+2. Add credit under Billing. **$5 gets you started; $10 is more comfortable.**
+
+   Cost is roughly **2–4 cents per posting scored** on Opus 4.8 (~2,500 input
+   + ~800 output tokens each). The first run is capped at 25 postings, so about
+   $0.75. After that it only scores postings it has never seen — typically
+   5–15 a day, so $0.15–0.50/day.
+
+   To cut that: drop `effort` to `"low"` in `lib/score.ts`, or switch the model
+   to `claude-sonnet-5`. Both meaningfully cheaper; both a bit blunter at
+   telling a real match from a plausible one.
 3. Vercel → env var `ANTHROPIC_API_KEY`.
 
 ### 5c. Cron secret
