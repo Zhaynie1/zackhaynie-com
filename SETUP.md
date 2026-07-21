@@ -245,6 +245,32 @@ that your filters aren't too tight or too loose.
 - **Colors and type** — `app/globals.css`, top of the file. Light and dark are
   both defined; the site follows the visitor's system setting.
 - **Homepage copy** — `app/page.tsx`.
+- **Skills bars** — `lib/skills.ts`. Bar length is the `level` (1, 2 or 3), and
+  the tiers are defined at the top of that file. Keep the list sorted by level,
+  since the section labels the first row of each group.
+- **Screenshots** — drop the file in `media/`, then point a project's `shot` at
+  it in `lib/projects.ts`. Next reads the dimensions and builds the blur
+  placeholder at build time, so nothing needs sizing by hand.
+
+### Regenerating the resume PDF
+
+The resume is written as HTML in `resume/resume.html` and printed to
+`public/Zachary-Haynie-Resume.pdf`. Edit the HTML, then run:
+
+```powershell
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless --disable-gpu `
+  --no-pdf-header-footer `
+  --print-to-pdf="C:\Users\zackh\dev\zackhaynie-com\public\Zachary-Haynie-Resume.pdf" `
+  "file:///C:/Users/zackh/dev/zackhaynie-com/resume/resume.html"
+```
+
+Commit the regenerated PDF. It is served straight out of `public/`, so the
+download link never changes.
+
+**Keep it consistent with the site.** The resume and the homepage both say the
+same thing about how you work: you direct AI and do not write the implementation
+code. If one of them ever drifts, a reader who checks both will notice, and that
+is the worst possible way for them to find out.
 
 ---
 

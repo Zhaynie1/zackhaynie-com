@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zachary Haynie — Resume</title>
+<style>
+  @page { size: letter; margin: 0.5in 0.6in; }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Inter Tight", "Segoe UI", system-ui, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.42;
+    color: #1d1d1f;
+    margin: 0;
+  }
+
+  a { color: #0055aa; text-decoration: none; }
+
+  /* ---- header ---- */
+  h1 {
+    font-size: 21pt;
+    letter-spacing: -0.02em;
+    font-weight: 650;
+    margin: 0 0 5px;
+  }
+
+  .contact {
+    font-size: 9pt;
+    color: #47474b;
+    margin-bottom: 3px;
+  }
+  .contact span { color: #b8b8bd; padding: 0 6px; }
+
+  .pitch {
+    font-size: 9.4pt;
+    line-height: 1.5;
+    color: #3a3a3d;
+    margin: 11px 0 0;
+    padding: 9px 12px;
+    background: #f4f4f7;
+    border-radius: 5px;
+  }
+
+  /* ---- sections ---- */
+  h2 {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #86868b;
+    margin: 17px 0 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d8d8dd;
+  }
+
+  .job { margin-top: 10px; break-inside: avoid; }
+
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .job-title { font-size: 10.2pt; font-weight: 650; letter-spacing: -0.01em; }
+  .job-title em { font-style: normal; font-weight: 400; color: #6e6e73; }
+  .job-when { font-size: 8.6pt; color: #86868b; white-space: nowrap; }
+  .job-org { font-size: 9pt; color: #5a5a5e; margin-top: 1px; }
+
+  ul { margin: 5px 0 0; padding-left: 15px; }
+  li { margin-bottom: 2.5px; }
+  li::marker { color: #b0b0b5; }
+
+  /* ---- skills ---- */
+  .skills { margin-top: 9px; }
+
+  .skill-row {
+    display: flex;
+    gap: 9px;
+    margin-bottom: 5px;
+    align-items: baseline;
+  }
+
+  .skill-cat {
+    flex: 0 0 118px;
+    font-size: 8.4pt;
+    font-weight: 650;
+    color: #5a5a5e;
+  }
+
+  .skill-list { flex: 1; font-size: 9.2pt; color: #2c2c2f; }
+
+  .note {
+    margin-top: 13px;
+    font-size: 8.4pt;
+    color: #86868b;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Zachary Haynie</h1>
+  <div class="contact">
+    Shawnee, Oklahoma (open to remote)
+    <span>|</span> 405-873-2736
+    <span>|</span> zack@zackhaynie.com
+    <span>|</span> zackhaynie.com
+  </div>
+
+  <p class="pitch">
+    I ship working software by directing AI coding agents. I am not a hands-on
+    programmer and do not write the implementation code. What I do is decide what
+    gets built, specify it precisely, judge whether the output is actually correct,
+    catch it when it is not, and drive it through certification and deployment to
+    something real. Three slot games, a live job-matching agent, and a local-first
+    home assistant, all finished and running.
+  </p>
+
+  <h2>Selected Projects</h2>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Sakura Storm <em>— 6x5 slot game, Stake Engine</em></div>
+      <div class="job-when">2026</div>
+    </div>
+    <ul>
+      <li>Payout model holds a 0.97 return across three bet modes with a 25,000x max win and a 1-in-400 bonus rate, verified over millions of simulated rounds.</li>
+      <li>Passed independent front-end and math certification, now in final platform review ahead of release. Confirmed requirements with the platform up front rather than assuming them; the model still failed audit three times before passing, and I drove each revision.</li>
+      <li>Diagnosed and fixed a mid-spin freeze in the front end within an hour of identifying it, a defect that would have cost player retention at launch.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Job Agent <em>— live at zackhaynie.com/agent</em></div>
+      <div class="job-when">2026</div>
+    </div>
+    <ul>
+      <li>Built an automated pipeline that polls public job-board APIs across a watchlist of companies, filters roughly 4,500 postings down to a few dozen with deterministic rules, then scores the survivors with Claude against a structured schema and drafts outreach.</li>
+      <li>Runs daily on Vercel Cron against a Postgres store, with output public on the site. Drafts but never sends; volume auto-applying was a non-goal.</li>
+      <li>Rejected the first working version: it rated every posting identically and generated openers claiming experience I do not have. Rewrote the scoring prompt until the model produced honest, varied, defensible assessments.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Jarvis <em>— local-first home assistant</em></div>
+      <div class="job-when">2026</div>
+    </div>
+    <ul>
+      <li>Architected so identity and memory live in a Python service rather than inside any one model, so swapping the underlying model does not reset what it knows.</li>
+      <li>Routes by request type between a local GPU-hosted model and a cloud model with graceful fallback. Vision runs entirely on-device; camera data never leaves the house, set as a hard requirement rather than an optimization.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Vault Legacy <em>— 3x3 slot game</em></div>
+      <div class="job-when">2026</div>
+    </div>
+    <ul>
+      <li>Complete math model and front end at a 0.965 return with a 10,000x cap across nine fixed paylines, not yet certified or launched. Set the constraint that paytable, symbols and paylines are defined once and mirrored between the Python math model and the TypeScript client, so displayed odds can never drift from paid odds.</li>
+    </ul>
+  </div>
+
+  <h2>Professional Experience</h2>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Invoice Clerk</div>
+      <div class="job-when">2022 to Present</div>
+    </div>
+    <div class="job-org">DTH Construction</div>
+    <ul>
+      <li>Process, code and track vendor and subcontractor invoices from receipt through payment, ensuring accuracy and timely turnaround.</li>
+      <li>Maintain accounts payable records, matching invoices against purchase orders and job costs, and resolve billing discrepancies with vendors and internal teams.</li>
+      <li>Support the accounting workflow with data entry, reconciliation and reporting across active projects.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Laser Technician Assistant</div>
+      <div class="job-when">2021 to 2023</div>
+    </div>
+    <div class="job-org">Laser Design &amp; Event Production</div>
+    <ul>
+      <li>Programmed custom laser designs and light shows for live events, including productions for the Oklahoma City Thunder (NBA).</li>
+      <li>Built and adjusted laser layouts for events across the United States, tailored to each venue and client.</li>
+      <li>Handled setup, calibration and alignment on site, hitting creative and timing cues live with no opportunity to correct a mistake after the fact.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div class="job-title">Concrete Finisher / Laborer</div>
+      <div class="job-when">2019 to 2022</div>
+    </div>
+    <div class="job-org">Concrete &amp; Construction</div>
+    <ul>
+      <li>Poured, placed, leveled and finished concrete for foundations, slabs, driveways and structural elements; set, braced and stripped forms and graded sub-base and reinforcement prior to pours.</li>
+      <li>Operated power trowels, screeds, vibrators, mixers, plate compactors and saws, meeting surface specifications on deadline in varied weather.</li>
+    </ul>
+  </div>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <div class="skill-row">
+      <div class="skill-cat">Directing AI</div>
+      <div class="skill-list">Claude API, structured output and tool use, prompt design and iteration, agent pipelines, evaluating and correcting model output, RAG and vector search</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-list">TypeScript, Python, JavaScript, Lua, HTML, CSS, SQL</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Frameworks</div>
+      <div class="skill-list">Next.js, React, Svelte, FastAPI, Node.js, PixiJS and WebGL</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Data &amp; infra</div>
+      <div class="skill-list">Postgres, Chroma, Ollama, Vercel, Cloudflare DNS and email routing, cron scheduling, environment and secret management, Git and GitHub</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Game development</div>
+      <div class="skill-list">Stake Engine, slot math modelling, RTP and volatility tuning, Monte Carlo simulation, third-party certification, Roblox and Lua</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">Practice</div>
+      <div class="skill-list">Scoping and specification, debugging by bisecting behaviour, reading output critically, shipping to production</div>
+    </div>
+  </div>
+
+  <p class="note">Live work, including the job agent running against real postings, at zackhaynie.com</p>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { profile } from "@/lib/profile";
 import { featuredProjects, otherProjects, type Project } from "@/lib/projects";
+import { skills, levels } from "@/lib/skills";
 import { topJobs, stats, dbConfigured } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +19,19 @@ function FeaturedProject({ project }: { project: Project }) {
       <p className="t-sub measure-wide" style={{ margin: "18px 0 32px" }}>
         {project.tagline}
       </p>
+
+      {project.shot && (
+        <figure className="shot">
+          <Image
+            src={project.shot.src}
+            alt={project.shot.alt}
+            placeholder="blur"
+            sizes="(max-width: 820px) 100vw, 760px"
+            priority
+          />
+          <figcaption>{project.shot.caption}</figcaption>
+        </figure>
+      )}
 
       <div className="prose">
         {project.body.map((p, i) => (
@@ -204,6 +219,64 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ================= SKILLS ================= */}
+      <section className="section-tight" id="skills">
+        <div className="wrap">
+          <div className="card">
+            <p className="t-label">Skills</p>
+            <h2 className="t-section" style={{ margin: "16px 0 20px" }}>
+              Measured by what shipped.
+            </h2>
+            <p className="t-body measure-wide" style={{ marginBottom: 36 }}>
+              Bar length is not a self-rating. It is how much evidence sits
+              behind each one, and every tier is defined against the projects
+              above, so you can check any bar by scrolling back up.
+            </p>
+
+            <ul className="key">
+              {([3, 2, 1] as const).map((l) => (
+                <li key={l}>
+                  <span className={`key-bar key-bar-${l}`} aria-hidden />
+                  <span>
+                    <strong>{levels[l].name}</strong> {levels[l].meaning}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="skillgrid">
+              {skills.map((s, i) => {
+                // The list is sorted by tier, so label only the first row of
+                // each group. Nineteen repetitions of the same three words is
+                // noise, and the grouping already carries it.
+                const startsGroup = i === 0 || skills[i - 1].level !== s.level;
+                return (
+                  <div
+                    className={`skillrow${startsGroup && i > 0 ? " skillrow-new" : ""}`}
+                    key={s.name}
+                  >
+                    <span className="skillname">{s.name}</span>
+                    <span
+                      className="skilltrack"
+                      role="img"
+                      aria-label={`${s.name}: ${levels[s.level].name}`}
+                    >
+                      <span
+                        className="skillbar"
+                        style={{ width: `${(s.level / 3) * 100}%` }}
+                      />
+                    </span>
+                    <span className="skilltier" aria-hidden>
+                      {startsGroup ? levels[s.level].name : ""}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ================= AGENT ================= */}
       <section className="section" id="agent">
         <div className="wrap">
@@ -297,6 +370,11 @@ export default async function Home() {
           <p style={{ marginTop: 12 }}>
             <a href={`mailto:${profile.email}`} className="email-xl">
               {profile.email}
+            </a>
+          </p>
+          <p style={{ marginTop: 26 }}>
+            <a href="/Zachary-Haynie-Resume.pdf" className="btn btn-ghost">
+              Download my resume (PDF)
             </a>
           </p>
         </div>

@@ -412,6 +412,27 @@ h4 {
   border-top: 1px solid var(--line-soft);
 }
 
+/* A screenshot of the thing running. The images are dark game captures, so the
+   frame stays hairline-thin in both themes rather than boxing them in. */
+.shot {
+  margin: 0 0 40px;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+}
+
+.shot figcaption {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+
 .role-note {
   margin: 28px 0 0;
   padding: 18px 22px;
@@ -449,6 +470,104 @@ h4 {
   font-size: 1.0625rem;
   font-weight: 500;
   letter-spacing: -0.015em;
+}
+
+/* ---- skills bars ----
+   One series, so one hue for every bar. Length is the only value encoding,
+   and the tier name repeats it in text so nothing is colour-or-length alone. */
+
+.key {
+  list-style: none;
+  margin: 0 0 34px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.key li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.key strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.key-bar {
+  flex: none;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.key-bar-3 { width: 42px; }
+.key-bar-2 { width: 28px; }
+.key-bar-1 { width: 14px; }
+
+.skillgrid {
+  display: grid;
+  gap: 14px;
+}
+
+.skillrow {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 9.5rem);
+  align-items: center;
+  gap: 18px;
+}
+
+.skillname {
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.skilltrack {
+  height: 8px;
+  border-radius: 4px;
+  /* Mixed from the ink rather than a fixed line token, so the empty track
+     stays equally visible on the light card and the near-black dark one. */
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
+  overflow: hidden;
+}
+
+.skillbar {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+/* Extra air where the tier changes, so the groups read without a rule. */
+.skillrow-new {
+  margin-top: 16px;
+}
+
+.skilltier {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+@media (max-width: 720px) {
+  /* Stack the label above the bar, and let the tier name sit inline with the
+     skill name rather than getting squeezed into an unreadable column. */
+  .skillrow {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+  }
+  .skilltier {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .skilltrack {
+    grid-column: 1 / -1;
+  }
 }
 
 .chips {

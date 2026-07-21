@@ -1,3 +1,6 @@
+import type { StaticImageData } from "next/image";
+import sakuraShot from "@/media/sakura-storm.png";
+
 export type Project = {
   slug: string;
   title: string;
@@ -11,6 +14,9 @@ export type Project = {
   facts?: { label: string; value: string }[];
   /** What Zack personally decided or caught. The honest contribution line. */
   role?: string;
+  /** A screenshot of the thing actually running. Statically imported so Next
+   * derives the dimensions and a blur placeholder at build time. */
+  shot?: { src: StaticImageData; alt: string; caption: string };
   /**
    * A public, third-party-hosted place to go play or see the thing. This is
    * the strongest proof there is, so it renders as the primary button.
@@ -42,6 +48,13 @@ export const projects: Project[] = [
       "It has passed both front end and math certification. It is now in final platform review ahead of release, and I will link it here the day it goes live.",
     ],
     role: "Confirmed the math requirements with Stake up front, ran the model back through certification until it passed, and caught and fixed the spin freeze. Art, code and math were all AI-generated under my direction.",
+
+    shot: {
+      src: sakuraShot,
+      alt: "Sakura Storm mid free-spin round. A 6 by 5 grid of ramen, mochi, onigiri, ninja, oni mask, fox and dragon symbols inside a red torii gate frame, set against a night sky with cherry blossoms and floating lanterns. The header reads FREE SPINS 4 OF 15 with a tumble win counter and a 1x multiplier.",
+      caption:
+        "Free spins round, 4 of 15, showing the tumble win counter and multiplier. Every symbol and background was AI-generated to a brief.",
+    },
 
     // On release: replace `pending` with
     //   live: { label: "Play it on Stake Engine", href: "https://..." },

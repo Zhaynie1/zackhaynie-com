@@ -43,6 +43,9 @@ export default function RootLayout({
               <NavAnchor id="agent" className="nav-hide-sm">
                 Agent
               </NavAnchor>
+              <a href="/Zachary-Haynie-Resume.pdf" className="nav-hide-sm">
+                Resume
+              </a>
               <a href={`mailto:${profile.email}`} className="btn btn-primary btn-sm">
                 Email me
               </a>
