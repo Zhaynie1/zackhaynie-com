@@ -23,8 +23,19 @@ export async function GET(request: Request) {
   const from = process.env.DIGEST_FROM;
   const to = process.env.DIGEST_TO;
   if (!apiKey || !from || !to) {
-    // Email isn't configured yet, so still report what we found.
-    return NextResponse.json({ ok: true, matches: matches.length, sent: false });
+    // Report which names are missing so a silent no-send is diagnosable.
+    // Names only, never values.
+    const missing = [
+      !apiKey && "RESEND_API_KEY",
+      !from && "DIGEST_FROM",
+      !to && "DIGEST_TO",
+    ].filter(Boolean);
+    return NextResponse.json({
+      ok: true,
+      matches: matches.length,
+      sent: false,
+      missing,
+    });
   }
 
   const html = `
