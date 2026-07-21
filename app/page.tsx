@@ -49,13 +49,41 @@ function FeaturedProject({ project }: { project: Project }) {
         ))}
       </ul>
 
-      {project.links?.map((l) => (
-        <p key={l.href} style={{ margin: "28px 0 0" }}>
-          <a href={l.href} className="link-arrow">
-            {l.label} <span aria-hidden>→</span>
-          </a>
-        </p>
-      ))}
+      {(project.live || project.pending || project.links) && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            flexWrap: "wrap",
+            marginTop: 30,
+          }}
+        >
+          {project.live && (
+            <a
+              href={project.live.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              {project.live.label}
+            </a>
+          )}
+
+          {!project.live && project.pending && (
+            <span className="badge">
+              <span className="dot dot-amber" aria-hidden />
+              {project.pending}
+            </span>
+          )}
+
+          {project.links?.map((l) => (
+            <a key={l.href} href={l.href} className="link-arrow">
+              {l.label} <span aria-hidden>→</span>
+            </a>
+          ))}
+        </div>
+      )}
     </article>
   );
 }

@@ -346,6 +346,11 @@ h4 {
   box-shadow: 0 0 0 3px color-mix(in srgb, #30d158 22%, transparent);
 }
 
+.dot-amber {
+  background: #ff9f0a;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #ff9f0a 22%, transparent);
+}
+
 .hero-actions {
   display: flex;
   gap: 12px;

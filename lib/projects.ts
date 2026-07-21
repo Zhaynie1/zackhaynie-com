@@ -11,6 +11,14 @@ export type Project = {
   facts?: { label: string; value: string }[];
   /** What Zack personally decided or caught. The honest contribution line. */
   role?: string;
+  /**
+   * A public, third-party-hosted place to go play or see the thing. This is
+   * the strongest proof there is, so it renders as the primary button.
+   * On launch day, fill this in and delete `pending` below.
+   */
+  live?: { label: string; href: string };
+  /** Shown instead of `live` while the thing is not publicly available yet. */
+  pending?: string;
   links?: { label: string; href: string }[];
   featured?: boolean;
 };
@@ -32,11 +40,16 @@ export const projects: Project[] = [
       "Certification is a useful forcing function, because it removes the option of \"close enough.\" A payout distribution is either provably correct across millions of rounds or it does not ship. Getting there meant a lot of runs where the answer was no.",
     ],
     role: "Specified the game, tuned the model against certification targets, and owned the call on when it was correct. Implementation produced by AI under my direction.",
+
+    // On launch: replace `pending` with
+    //   live: { label: "Play it on Stake Engine", href: "https://..." },
+    pending: "Releasing on Stake Engine",
+
     facts: [
       { label: "Return to player", value: "0.97 across all 3 bet modes" },
       { label: "Max win", value: "25,000×" },
       { label: "Bonus trigger", value: "1 in 400 spins" },
-      { label: "Certification", value: "Passed third-party audit" },
+      { label: "Built against", value: "Stake Engine certification targets" },
     ],
   },
   {
