@@ -38,18 +38,19 @@ export const projects: Project[] = [
       "Slot math is a constrained optimization problem. You are given a target return, a hit frequency, a max win cap and a volatility profile, and the reel set and payout table have to satisfy all four at once. Then it has to survive an audit by someone whose job is to find where you got it wrong.",
       "I specified the game and drove it to certification. The judgement calls were mine: how volatile it should feel, when the numbers coming back were wrong rather than merely surprising, when a cascade animation read as broken instead of dramatic, and when it was actually finished.",
       "Certification is a useful forcing function, because it removes the option of \"close enough.\" A payout distribution is either provably correct across millions of rounds or it does not ship. Getting there meant a lot of runs where the answer was no.",
+      "It has passed both front end and math certification. It is now in final platform review ahead of release, and I will link it here the day it goes live.",
     ],
     role: "Specified the game, tuned the model against certification targets, and owned the call on when it was correct. Implementation produced by AI under my direction.",
 
-    // On launch: replace `pending` with
+    // On release: replace `pending` with
     //   live: { label: "Play it on Stake Engine", href: "https://..." },
-    pending: "Releasing on Stake Engine",
+    pending: "Certified. In final review ahead of release.",
 
     facts: [
       { label: "Return to player", value: "0.97 across all 3 bet modes" },
       { label: "Max win", value: "25,000×" },
       { label: "Bonus trigger", value: "1 in 400 spins" },
-      { label: "Built against", value: "Stake Engine certification targets" },
+      { label: "Certification", value: "Front end and math passed" },
     ],
   },
   {
