@@ -106,8 +106,9 @@ export const projects: Project[] = [
       "Each morning it polls the public job-board APIs of a watchlist of companies. Cheap deterministic filters run first, checking title, location, and everything already seen, because there is no reason to spend model tokens learning that a Director of Sales role is a bad fit. About 4,500 postings become about 37.",
       "Those go to Claude with a strict schema: a 0 to 100 fit score, the specific reasons, and a draft opener. Anything above the bar lands in a daily digest.",
       "Two decisions I would defend. It drafts but never sends, because auto-applying at volume is how you become spam, and the goal was never to apply to more jobs. It was to only look at the ones that matter. And it is instructed to be harsh about my gaps. An early version rated every single posting exactly 72 and wrote openers claiming experience I do not have. That version was useless, and worse, dishonest. The current one routinely scores roles in the single digits and says why.",
+      "The openers it drafts are published on this page, which creates a problem worth solving properly. A later version was writing \"I build AI tooling end-to-end\" and naming a model provider I have never used. Instructing it not to got that from constant down to roughly one slip in forty, and one in forty is still a false claim on a public page. So the absolutes are enforced in code rather than in the prompt: an opener that claims I wrote the implementation, or names a tool I do not use, gets dropped instead of published. A missing opener is strictly better than a false one.",
     ],
-    role: "Designed the pipeline, caught the scoring model hedging and fabricating, and rewrote the prompt until it told the truth.",
+    role: "Set the pipeline design and the honesty constraints, reviewed the output and rejected the first working version, and drove the prompt rewrite until it scored honestly.",
     repo: "https://github.com/Zhaynie1/zackhaynie-com",
     facts: [
       { label: "Read per run", value: "~4,500 postings" },
