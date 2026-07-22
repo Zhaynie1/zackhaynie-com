@@ -147,6 +147,34 @@ science degree or years of professional software employment.`,
     "technical writer",
     "documentation",
 
+    // 4b. Support, QA and IT. Added 2026-07-22. The highest-volume category
+    // that is technical without requiring him to author code, and the real
+    // version of "aim broader" advice.
+    //
+    // Note the variants that are deliberately here and the ones that are not.
+    // "QA analyst" and "quality assurance" are in; "QA automation engineer" is
+    // not, because QA automation means writing Selenium and Playwright test
+    // code, which is the exact thing he cannot do. Same word, different job.
+    "technical support",
+    "application support",
+    "product support",
+    "customer support engineer",
+    "support specialist",
+    "support analyst",
+    "help desk",
+    "helpdesk",
+    "service desk",
+    "it support",
+    "desktop support",
+    "it specialist",
+    "systems administrator",
+    "quality assurance",
+    "qa analyst",
+    "qa engineer",
+    "release coordinator",
+    "business analyst",
+    "operations analyst",
+
     // 5. Small-company generalist, where shipping beats credentials.
     "founding",
     "member of technical staff",
@@ -204,6 +232,11 @@ science degree or years of professional software employment.`,
     "developer relations",
     "developer experience",
     "support engineer",
+    "technical support",
+    "application support",
+    "support specialist",
+    "quality assurance",
+    "qa analyst",
     "technical writer",
     "founding",
     "member of technical staff",
@@ -240,6 +273,11 @@ science degree or years of professional software employment.`,
     "head of",
     "chief",
     "engineering manager",
+    // Product management stays excluded on purpose. It needs no coding, which
+    // makes it look like an obvious fit, but entry-level PM is one of the most
+    // credential-gated doors in tech: associate PM programs recruit from
+    // target-school new grads and the rest of the market wants prior PM or
+    // domain experience. Revisit once there is a job title behind him.
     "product manager",
     "program manager",
     "project manager",
