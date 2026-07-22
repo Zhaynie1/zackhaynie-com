@@ -179,6 +179,7 @@ export const projects: Project[] = [
       "All the tuning values sit in a labelled block at the top of the file, so changing how the game feels never requires reading the logic underneath it. Player versus player, hoard scattering, rounds, saving, shops and art are all deliberately not built yet.",
     ],
     role: "My first project. Set the design question, made the server-authority and render-cap calls, and kept scope on the one thing that had to be proven first.",
+    repo: "https://github.com/Zhaynie1/hoard",
   },
   {
     slug: "freedom-septic",

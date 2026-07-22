@@ -709,6 +709,25 @@ h4 {
   font-size: 1.1875rem;
 }
 
+/* Source link on a compact row. Spans both columns and sits under the tagline
+   rather than beside the kind label, so it never competes with the title for
+   the eye on a scan down the list. */
+.row-repo {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.875rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.row-repo:hover {
+  text-decoration: underline;
+}
+
 .row p {
   grid-column: 1 / -1;
   margin: 6px 0 0;
