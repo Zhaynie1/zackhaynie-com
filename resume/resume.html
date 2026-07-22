@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Zachary Haynie — Resume</title>
+<title>Zachary Haynie, Resume</title>
 <style>
   @page { size: letter; margin: 0.5in 0.6in; }
 
@@ -110,6 +110,7 @@
     <span>|</span> 405-873-2736
     <span>|</span> zack@zackhaynie.com
     <span>|</span> zackhaynie.com
+    <span>|</span> github.com/Zhaynie1
   </div>
 
   <p class="pitch">
@@ -125,7 +126,7 @@
 
   <div class="job">
     <div class="job-head">
-      <div class="job-title">Sakura Storm <em>— 6x5 slot game, Stake Engine</em></div>
+      <div class="job-title">Sakura Storm <em>· 6x5 slot game, Stake Engine</em></div>
       <div class="job-when">2026</div>
     </div>
     <ul>
@@ -137,30 +138,31 @@
 
   <div class="job">
     <div class="job-head">
-      <div class="job-title">Job Agent <em>— live at zackhaynie.com/agent</em></div>
+      <div class="job-title">Job Agent <em>· live at zackhaynie.com/agent</em></div>
       <div class="job-when">2026</div>
     </div>
     <ul>
       <li>Built an automated pipeline that polls public job-board APIs across a watchlist of companies, filters roughly 4,500 postings down to a few dozen with deterministic rules, then scores the survivors with Claude against a structured schema and drafts outreach.</li>
       <li>Runs daily on Vercel Cron against a Postgres store, with output public on the site. Drafts but never sends; volume auto-applying was a non-goal.</li>
       <li>Rejected the first working version: it rated every posting identically and generated openers claiming experience I do not have. Rewrote the scoring prompt until the model produced honest, varied, defensible assessments.</li>
+      <li>Moved the non-negotiable accuracy rules out of the prompt and into code after the rewritten prompt still violated them once in forty attempts. Openers that overstate my background or name a tool I do not use are now discarded before publication rather than corrected. Source is public.</li>
     </ul>
   </div>
 
   <div class="job">
     <div class="job-head">
-      <div class="job-title">Jarvis <em>— local-first home assistant</em></div>
+      <div class="job-title">Jarvis <em>· local-first home assistant</em></div>
       <div class="job-when">2026</div>
     </div>
     <ul>
       <li>Architected so identity and memory live in a Python service rather than inside any one model, so swapping the underlying model does not reset what it knows.</li>
-      <li>Routes by request type between a local GPU-hosted model and a cloud model with graceful fallback. Vision runs entirely on-device; camera data never leaves the house, set as a hard requirement rather than an optimization.</li>
+      <li>Routes by request type between a local GPU-hosted model and a cloud model with graceful fallback. Vision runs entirely on-device; camera data never leaves the house, set as a hard requirement rather than an optimization. Source is public.</li>
     </ul>
   </div>
 
   <div class="job">
     <div class="job-head">
-      <div class="job-title">Vault Legacy <em>— 3x3 slot game</em></div>
+      <div class="job-title">Vault Legacy <em>· 3x3 slot game</em></div>
       <div class="job-when">2026</div>
     </div>
     <ul>
