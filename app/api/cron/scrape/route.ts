@@ -14,7 +14,11 @@ import { isAuthorizedCron } from "@/lib/cron-auth";
 export const maxDuration = 300;
 
 /** Don't score more than this per run. Bounds both runtime and spend. */
-const MAX_PER_RUN = 25;
+// Raised from 25 when the watchlist was retargeted (2026-07-21) and the
+// surviving pool went from 37 to ~89. Steady state is unaffected: after the
+// first pass a run only scores postings it has never seen, which is a handful
+// a day. This number only matters while working through an initial backlog.
+const MAX_PER_RUN = 40;
 
 export async function GET(request: Request) {
   if (!isAuthorizedCron(request)) {

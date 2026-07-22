@@ -44,10 +44,31 @@ system, reading output critically, debugging by bisecting behaviour, and
 operating the infrastructure: DNS, deployment, environment configuration,
 API keys, cron, databases.
 
-Looking for: roles built around directing AI to produce software. AI-native
-product work, prompt and agent engineering, technical operations, solutions
-and forward-deployed work, QA of AI output, or a team explicitly hiring
-builders rather than credentialed engineers.`,
+Two things about him are genuinely scarce rather than merely presentable.
+
+First, judging AI output is his actual craft, not a side effect of using it.
+He has repeatedly caught models producing work that looked finished and was
+wrong: a scoring pipeline that rated every input identically, outreach that
+invented experience he does not have, animation logic that broke a payout
+sequence while the numbers underneath stayed correct. Roles built around
+evaluating, red-teaming, annotating or quality-checking model output are the
+closest match to what he does all day.
+
+Second, certified slot math is a small field. Sakura Storm passed independent
+math and front end certification and is in final platform review at Stake. In
+the general software market he is a non-traditional candidate; in game math he
+holds an externally audited credential that very few applicants can produce.
+
+Looking for: roles built around directing, deploying and judging AI rather
+than hand-authoring code. AI training and evaluation, forward-deployed and
+solutions work, implementation and technical account roles, AI operations and
+automation, developer advocacy, technical writing, game math and game design,
+or a small team explicitly hiring builders rather than credentialed engineers.
+
+Not a fit, and should score low: roles requiring him to pass a live coding
+interview, senior or staff engineering titles, deep systems work such as
+security, infrastructure, compilers or C++, and anything gated on a computer
+science degree or years of professional software employment.`,
 
   /** Skills the agent should treat as strong matches. */
   skills: [
@@ -67,50 +88,89 @@ builders rather than credentialed engineers.`,
   ],
 
   /**
-   * Titles worth surfacing. Matched case-insensitively as substrings.
-   * Deliberately weighted toward roles about directing and operating AI
-   * rather than hand-writing code.
+   * Titles worth surfacing. Matched case-insensitively as plain substrings.
+   *
+   * The organising filter here is not industry, it is **does this role end in
+   * a live coding interview**. Everything realistically winnable sits on the
+   * other side of that line, because the implementation code is not his to
+   * write. So the weight is on evaluating AI output, deploying it for
+   * customers, and operating it, rather than authoring it.
    */
   targetTitles: [
-    // Directing / operating AI. The core target.
+    // 1. Judging AI output. The closest match to what he actually does, and
+    // the corner of the market with the least credential gatekeeping.
+    "ai trainer",
+    "ai tutor",
+    "model evaluation",
+    "evaluation",
+    "evals",
+    "annotation",
+    "human data",
+    "data quality",
+    "quality analyst",
+    "red team",
+    "domain expert",
+
+    // 2. Taking AI to customers. Technical, demo-heavy, rarely a coding screen.
     "forward deployed",
     "forward-deployed",
     "solutions engineer",
     "solutions architect",
-    "implementation engineer",
-    "implementation specialist",
-    "ai engineer",
-    "applied ai",
-    "prompt engineer",
-    "agent engineer",
+    "solutions consultant",
+    "sales engineer",
+    "implementation",
+    "deployment",
+    "onboarding",
+    "technical account",
+    "customer engineer",
+    "professional services",
+    "technical consultant",
+
+    // 3. Operating AI inside a business.
+    "prompt",
     "ai operations",
     "ai specialist",
-    "ai trainer",
     "ai analyst",
-    "model evaluation",
-    "evals",
-    "technical account",
-    "developer advocate",
-    "developer experience",
-    "developer relations",
-    "technical support engineer",
-    "support engineer",
-    "automation engineer",
-    "automation specialist",
+    "ai engineer",
+    "applied ai",
+    "agent engineer",
+    "automation",
+    "workflow",
+    "ai enablement",
+    "ai adoption",
 
-    // Small-company generalist roles, where shipping beats credentials.
-    "founding engineer",
+    // 4. Explaining it. He writes clearly and directs AI to produce docs.
+    "support engineer",
+    "developer advocate",
+    "developer relations",
+    "developer experience",
+    "technical writer",
+    "documentation",
+
+    // 5. Small-company generalist, where shipping beats credentials.
+    "founding",
     "member of technical staff",
     "product engineer",
     "generalist",
 
-    // Still worth looking at. The scorer decides if they are realistic.
+    // 6. Games and game math. The certified Stake Engine model is a scarce,
+    // externally audited credential, and this is the only market where he is
+    // not the underdog.
+    "game math",
+    "mathematician",
+    "game economy",
+    "economy designer",
+    "game designer",
+    "systems designer",
+    "gameplay",
+
+    // 7. Kept deliberately out of priorityTitles below. These are mostly
+    // coding-screen roles, so they should only be scored if budget is left
+    // over after everything above has been looked at.
     "software engineer",
     "full stack",
     "fullstack",
     "full-stack",
-    "game designer",
-    "gameplay engineer",
   ],
 
   /**
@@ -119,41 +179,142 @@ builders rather than credentialed engineers.`,
    * return first, which is usually senior engineering roles.
    */
   priorityTitles: [
+    "ai trainer",
+    "model evaluation",
+    "evals",
+    "annotation",
+    "human data",
     "forward deployed",
     "forward-deployed",
     "solutions",
     "implementation",
+    "onboarding",
+    "technical account",
+    "customer engineer",
+    "deployment",
     "applied ai",
     "ai engineer",
+    "ai operations",
+    "ai specialist",
     "prompt",
     "agent",
-    "founding",
-    "member of technical staff",
+    "automation",
+    "workflow",
     "developer advocate",
     "developer relations",
     "developer experience",
-    "automation",
-    "ai operations",
-    "ai trainer",
-    "evals",
+    "support engineer",
+    "technical writer",
+    "founding",
+    "member of technical staff",
     "generalist",
+    "game math",
+    "mathematician",
+    "game economy",
+    "game designer",
   ],
 
-  /** Hard exclusions, filtered out before Claude ever sees them (saves tokens). */
+  /**
+   * Hard exclusions, filtered out before Claude ever sees them (saves tokens).
+   * Matched on word boundaries, so "lead" never matches "leader".
+   *
+   * `senior` is the single most valuable line here. In one sample run it was
+   * responsible for 25 of 50 scored postings, every one of them a senior
+   * engineering role that scored under 62 and was never winnable. Excluding it
+   * hands that budget to roles that are.
+   *
+   * Note the manager entries are specific rather than a bare "manager".
+   * Technical Account Manager is a genuine target and a blanket exclusion
+   * would silently delete it.
+   */
   excludeTitles: [
+    // Seniority he cannot credibly claim.
+    "senior",
+    "sr",
     "staff",
     "principal",
     "distinguished",
+    "lead",
     "director",
-    "vp ",
+    "vp",
     "head of",
-    "manager",
+    "chief",
+    "engineering manager",
+    "product manager",
+    "program manager",
+    "project manager",
+
+    // Wrong function entirely.
     "recruiter",
-    "sales",
-    "marketing",
+    "recruiting",
     "account executive",
+    "sales development",
+    "marketing",
+    "counsel",
+    "attorney",
+    "accountant",
+    "controller",
+    "payroll",
+    "clinical",
+    "nurse",
+
+    // Deep systems work, which is the furthest thing from what he does.
+    "security",
+    "infrastructure",
+    "compiler",
+    "kernel",
+    "c++",
+    "embedded",
+    "firmware",
+
+    // Credential gates that are absolute, not negotiable.
     "intern",
     "phd",
+    "research scientist",
+
+    // AI-trainer roles are hired per domain, and the vendors post dozens of
+    // them: "Geophysicist - AI Trainer", "BIM Coordinator - AI Trainer".
+    // The format is a strong match; these particular domains are not his, and
+    // without this they crowd out the ones that are. Software, game
+    // development and design domains are deliberately absent from this list.
+    "geophysicist",
+    "geologist",
+    "physics",
+    "chemistry",
+    "chemist",
+    "biology",
+    "biologist",
+    "mechanical engineer",
+    "hardware engineer",
+    "electrical engineer",
+    "civil engineer",
+    "aerospace",
+    "industrial designer",
+    "architectural designer",
+    "bim ",
+    "music producer",
+    "audio engineer",
+    "audio editor",
+    "video editor",
+    "illustrator",
+    "graphic designer",
+    "translator",
+    "linguist",
+    "radiologist",
+    "physician",
+    "pharmacist",
+    "veterinar",
+    "structural engineer",
+    "analog engineer",
+    "rf engineer",
+    "fluid dynamics",
+    "drafter",
+    "medical imaging",
+    "qgis",
+    "vectorworks",
+    "rhino 3d",
+    "3d slicer",
+    "gimp",
   ],
 
   /**
@@ -181,10 +342,14 @@ builders rather than credentialed engineers.`,
     "japan",
     "korea",
     "china",
+    "philippines",
+    "vietnam",
+    "indonesia",
     "brazil",
     "argentina",
     "colombia",
     "mexico",
+    "latam",
     "canada",
     "ireland",
     "london",
@@ -193,11 +358,29 @@ builders rather than credentialed engineers.`,
     "poland",
     "netherlands",
     "sweden",
+    "denmark",
+    "norway",
+    "finland",
     "france",
     "spain",
+    "portugal",
+    "italy",
+    "switzerland",
+    "austria",
+    "belgium",
+    "romania",
+    "turkey",
     "israel",
+    // Regional shorthands. Boards put these in the title as often as the
+    // location field, e.g. "Solutions Architect - MENA", which is how two
+    // of them slipped through a US-only filter in an earlier run.
     "emea",
     "apac",
+    "mena",
+    "middle east",
+    "africa",
+    "dubai",
+    "united arab",
   ],
 
   /** Postings scored at or above this make it into the digest. 0-100. */
@@ -218,25 +401,52 @@ builders rather than credentialed engineers.`,
  */
 export type BoardType = "greenhouse" | "lever" | "ashby";
 
+/**
+ * The watchlist, ordered by how likely a real conversation is rather than by
+ * how impressive the logo is.
+ *
+ * The previous version of this list was 26 household names. That reads like
+ * ambition and behaves like a filter against you: maximum applicant volume,
+ * mandatory coding screens, and resume screening on degree and years of
+ * professional employment before a person ever reads it. Tier 4 keeps a few of
+ * those because the cost of applying is twenty minutes. It should not be where
+ * the search lives.
+ *
+ * Every slug verified against its live API on 2026-07-21.
+ */
 export const companies: { name: string; board: BoardType; slug: string }[] = [
-  // AI agent and applied-AI companies. These carry the largest
-  // forward-deployed and solutions orgs, which is the best-fit shape.
-  { name: "Anthropic", board: "greenhouse", slug: "anthropic" },
-  { name: "OpenAI", board: "ashby", slug: "openai" },
-  { name: "Sierra", board: "ashby", slug: "sierra" },
-  { name: "Decagon", board: "ashby", slug: "decagon" },
-  { name: "Harvey", board: "ashby", slug: "harvey" },
-  { name: "Cognition", board: "ashby", slug: "cognition" },
-  { name: "Cursor", board: "ashby", slug: "cursor" },
-  { name: "Perplexity", board: "ashby", slug: "perplexity" },
-  { name: "ElevenLabs", board: "ashby", slug: "elevenlabs" },
-  { name: "Writer", board: "ashby", slug: "writer" },
-  { name: "Abridge", board: "ashby", slug: "abridge" },
-  { name: "OpenEvidence", board: "ashby", slug: "openevidence" },
+  // ---------------------------------------------------------------------
+  // Tier 1. Evaluating AI output, which is the literal job description of
+  // what he does. These hire on demonstrated judgement, often start as
+  // contract, and usually have no coding screen. Highest conversion odds
+  // on the whole list.
+  // ---------------------------------------------------------------------
   { name: "Mercor", board: "ashby", slug: "mercor" },
+  { name: "Turing", board: "greenhouse", slug: "turing" },
+  { name: "Snorkel AI", board: "greenhouse", slug: "snorkelai" },
+  { name: "Handshake", board: "ashby", slug: "handshake" },
+  { name: "Labelbox", board: "greenhouse", slug: "labelbox" },
+  { name: "Invisible", board: "greenhouse", slug: "invisibletech" },
+  { name: "Prolific", board: "greenhouse", slug: "prolific" },
+  { name: "Appen", board: "lever", slug: "appen" },
+  { name: "Encord", board: "ashby", slug: "encord" },
   { name: "Scale AI", board: "greenhouse", slug: "scaleai" },
 
-  // Builder-culture product companies. More likely to hire on shipped work.
+  // ---------------------------------------------------------------------
+  // Tier 2. Small companies that deploy AI for customers. Forward-deployed
+  // and implementation work, where shipping something real counts for more
+  // than a credential and a founder still reads applications.
+  // ---------------------------------------------------------------------
+  { name: "Distyl", board: "ashby", slug: "distyl" },
+  { name: "Lorikeet", board: "ashby", slug: "lorikeet" },
+  { name: "Pylon", board: "ashby", slug: "pylon" },
+  { name: "Cresta", board: "greenhouse", slug: "cresta" },
+  { name: "Parloa", board: "greenhouse", slug: "parloa" },
+  { name: "Vellum", board: "ashby", slug: "vellum" },
+  { name: "Decagon", board: "ashby", slug: "decagon" },
+  { name: "Sierra", board: "ashby", slug: "sierra" },
+  { name: "Harvey", board: "ashby", slug: "harvey" },
+  { name: "Writer", board: "ashby", slug: "writer" },
   { name: "Replit", board: "ashby", slug: "replit" },
   { name: "Lovable", board: "ashby", slug: "lovable" },
   { name: "Gamma", board: "ashby", slug: "gamma" },
@@ -244,13 +454,32 @@ export const companies: { name: string; board: BoardType; slug: string }[] = [
   { name: "Modal", board: "ashby", slug: "modal" },
   { name: "Browserbase", board: "ashby", slug: "browserbase" },
   { name: "Zapier", board: "ashby", slug: "zapier" },
-  { name: "Vercel", board: "greenhouse", slug: "vercel" },
-  { name: "Linear", board: "ashby", slug: "linear" },
-  { name: "Notion", board: "ashby", slug: "notion" },
 
-  // Remote-first and unconventional hiring.
-  { name: "GitLab", board: "greenhouse", slug: "gitlab" },
-
-  // Games, on the strength of Hoard.
+  // ---------------------------------------------------------------------
+  // Tier 3. Games and betting, where the certified Stake Engine math model
+  // is a scarce, independently audited credential rather than a hobby.
+  //
+  // Known gap: the dedicated slot studios (Light & Wonder, Aristocrat,
+  // Everi, High 5, Playtika) are all on Workday or iCIMS, which this agent
+  // cannot read. Those stay manual. Checked 2026-07-21.
+  // ---------------------------------------------------------------------
+  { name: "PrizePicks", board: "greenhouse", slug: "prizepicks" },
+  { name: "Underdog", board: "greenhouse", slug: "underdogfantasy" },
+  { name: "Kalshi", board: "greenhouse", slug: "kalshi" },
   { name: "Roblox", board: "greenhouse", slug: "roblox" },
+
+  // ---------------------------------------------------------------------
+  // Tier 4. Long shots, kept because applying is cheap. GitLab earned its
+  // place: it produced the single highest-scoring posting in the first run
+  // and is genuinely remote-first with unconventional hiring.
+  //
+  // Cut from the old list for producing nothing but senior engineering
+  // postings: Cognition, Abridge, OpenEvidence, Notion, Linear, Vercel,
+  // Perplexity.
+  // ---------------------------------------------------------------------
+  { name: "GitLab", board: "greenhouse", slug: "gitlab" },
+  { name: "Anthropic", board: "greenhouse", slug: "anthropic" },
+  { name: "OpenAI", board: "ashby", slug: "openai" },
+  { name: "Cursor", board: "ashby", slug: "cursor" },
+  { name: "ElevenLabs", board: "ashby", slug: "elevenlabs" },
 ];
