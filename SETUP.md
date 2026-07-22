@@ -33,11 +33,52 @@ cd C:\Users\zackh\dev\zackhaynie-com
 git init
 git add .
 git commit -m "Portfolio site and job agent"
-gh repo create zackhaynie-com --private --source=. --push
+gh repo create zackhaynie-com --public --source=. --push
 ```
 
-Private is the right call — your `.env.local` is gitignored, but the repo also
-contains your résumé positioning and target-company list.
+**Public is deliberate.** The site's whole claim is that the work is real, and
+the cheapest way for a hiring manager to check that is to read the code without
+installing anything. A private repo removes the one piece of evidence that costs
+them thirty seconds instead of thirty minutes.
+
+What that means in practice: the repo shows your target-company list and how the
+scorer describes you. That is fine, and arguably good. What must never land in
+it is a key. See the guardrails below.
+
+### What does *not* go public
+
+Game math models. The reel sets, payout tables and RTP internals for Sakura
+Storm and Vault Legacy are commercial IP tied to a platform deal, and publishing
+them would be a real problem regardless of how good they look. The certification
+is the proof there, not the source.
+
+### Guardrails
+
+Two of these are worth setting on every public repo:
+
+```powershell
+# Block force-pushes and branch deletion on main.
+gh api -X PUT repos/Zhaynie1/REPO/branches/main/protection `
+  -H "Accept: application/vnd.github+json" `
+  -f "required_status_checks=null" -f "enforce_admins=false" `
+  -f "required_pull_request_reviews=null" -f "restrictions=null" `
+  -F "allow_force_pushes=false" -F "allow_deletions=false"
+
+# Refuse any push containing something that looks like an API key.
+gh api -X PATCH repos/Zhaynie1/REPO `
+  -F "security_and_analysis[secret_scanning][status]=enabled" `
+  -F "security_and_analysis[secret_scanning_push_protection][status]=enabled"
+```
+
+Push protection is the one that matters. It rejects the commit *before* it
+reaches GitHub if it contains a recognisable key. It is the thing standing
+between you and the version of this that ends in a rotated Anthropic key.
+
+**One misconception worth clearing up:** making a repo public does *not* let
+strangers push to it. Only you and anyone you explicitly add as a collaborator
+can push. Outsiders can fork it and open a pull request, which you then either
+merge or ignore. There is no configuration needed to prevent random pushes,
+because random pushes were never possible.
 
 ---
 
@@ -241,6 +282,8 @@ that your filters aren't too tight or too loose.
 
 - **Projects** — `lib/projects.ts`. Set `featured: true` to give a project the
   full write-up treatment on the homepage; leave it off for the compact list.
+- **Source links** — a project's `repo` field renders a "Read the code" button.
+  Only set it where the source is genuinely yours to publish. Not the games.
 - **Your name, headline, email, location** — `lib/profile.ts`.
 - **Colors and type** — `app/globals.css`, top of the file. Light and dark are
   both defined; the site follows the visitor's system setting.

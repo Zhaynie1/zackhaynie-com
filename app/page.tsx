@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { profile } from "@/lib/profile";
+import { GitHubMark } from "./github-mark";
 import { featuredProjects, otherProjects, type Project } from "@/lib/projects";
 import { skills, levels } from "@/lib/skills";
 import { topJobs, stats, dbConfigured } from "@/lib/db";
@@ -78,7 +79,7 @@ function FeaturedProject({ project }: { project: Project }) {
         ))}
       </ul>
 
-      {(project.live || project.pending || project.links) && (
+      {(project.live || project.pending || project.repo || project.links) && (
         <div
           style={{
             display: "flex",
@@ -104,6 +105,18 @@ function FeaturedProject({ project }: { project: Project }) {
               <span className="dot dot-amber" aria-hidden />
               {project.pending}
             </span>
+          )}
+
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+            >
+              <GitHubMark />
+              Read the code
+            </a>
           )}
 
           {project.links?.map((l) => (
@@ -168,6 +181,19 @@ export default async function Home() {
               won&apos;t pretend otherwise. What I can do is take something from
               an idea to a finished, working, audited product. That turns out to
               be a different skill, and a scarcer one than it used to be.
+            </p>
+            <p className="t-body measure-wide" style={{ marginBottom: 44 }}>
+              Where the source is mine to publish, it&apos;s on{" "}
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-link"
+              >
+                GitHub
+              </a>
+              . You don&apos;t have to install anything, or take my word for any
+              of this, to judge whether the output is good.
             </p>
 
             <div className="pillars">
@@ -386,11 +412,28 @@ export default async function Home() {
               {profile.email}
             </a>
           </p>
-          <p style={{ marginTop: 26 }}>
+          <div
+            style={{
+              marginTop: 26,
+              display: "flex",
+              gap: 14,
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
             <a href="/Zachary-Haynie-Resume.pdf" className="btn btn-ghost">
               Download my resume (PDF)
             </a>
-          </p>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+            >
+              <GitHubMark />
+              GitHub
+            </a>
+          </div>
         </div>
       </section>
 
@@ -399,7 +442,12 @@ export default async function Home() {
           <span>
             {profile.name} · {profile.location}
           </span>
-          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          <span style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </span>
         </div>
       </div>
     </>

@@ -32,6 +32,13 @@ export type Project = {
   live?: { label: string; href: string };
   /** Shown instead of `live` while the thing is not publicly available yet. */
   pending?: string;
+  /**
+   * Public source. The point of this is that a reader does not have to install
+   * anything, or trust the write-up, to check the work: they can open the code
+   * and judge it in thirty seconds. Only set this where the source is genuinely
+   * mine to publish. Game math models are not.
+   */
+  repo?: string;
   links?: { label: string; href: string }[];
   featured?: boolean;
 };
@@ -101,6 +108,7 @@ export const projects: Project[] = [
       "Two decisions I would defend. It drafts but never sends, because auto-applying at volume is how you become spam, and the goal was never to apply to more jobs. It was to only look at the ones that matter. And it is instructed to be harsh about my gaps. An early version rated every single posting exactly 72 and wrote openers claiming experience I do not have. That version was useless, and worse, dishonest. The current one routinely scores roles in the single digits and says why.",
     ],
     role: "Designed the pipeline, caught the scoring model hedging and fabricating, and rewrote the prompt until it told the truth.",
+    repo: "https://github.com/Zhaynie1/zackhaynie-com",
     facts: [
       { label: "Read per run", value: "~4,500 postings" },
       { label: "Survive filtering", value: "~37" },
@@ -125,6 +133,7 @@ export const projects: Project[] = [
       "Vision runs entirely on the local machine. Camera frames never leave the house. That was a requirement, not an optimization.",
     ],
     role: "Set the architecture constraints, including local-first, model-agnostic identity, and no camera data leaving the house, then drove the build against them.",
+    repo: "https://github.com/Zhaynie1/jarvis",
     facts: [
       { label: "Local model", value: "Runs on-device, on GPU" },
       { label: "Vision", value: "Never leaves the machine" },

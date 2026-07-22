@@ -46,6 +46,14 @@ export default function RootLayout({
               <a href="/Zachary-Haynie-Resume.pdf" className="nav-hide-sm">
                 Resume
               </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-hide-sm"
+              >
+                GitHub
+              </a>
               <a href={`mailto:${profile.email}`} className="btn btn-primary btn-sm">
                 Email me
               </a>
