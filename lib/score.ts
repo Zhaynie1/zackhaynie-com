@@ -24,10 +24,13 @@ const FitSchema = z.object({
   opener: z
     .string()
     .describe(
-      "Two sentences Zack could send today. Must name something specific from THIS " +
-        "posting, and one real project from his background by name (Sakura Storm, " +
-        "Jarvis, the job agent, Starpetal Harvest, Neon Ronin). Every claim must be " +
-        "literally true of him. No placeholders, no brackets, no 'excited about your mission'.",
+      "Two sentences Zack could send today, in his first person voice. Must name " +
+        "something specific from THIS posting and one real project by name " +
+        "(Sakura Storm, Vault Legacy, Jarvis, the job agent, Hoard). Every claim " +
+        "must be literally true of him, and he does NOT write implementation code: " +
+        "never write 'I built', 'I coded', 'I'm a developer' or 'hands-on'. He " +
+        "directs AI, specifies, judges and ships. No placeholders, no brackets, " +
+        "no 'excited about your mission'.",
     ),
 });
 
@@ -85,10 +88,39 @@ Primary skills: ${profile.skills.join(", ")}
 
 3. Write about him in the third person. Not "you".
 
-4. The opener must contain only claims that are literally true of him, and must
-   name a real project (Sakura Storm, Jarvis, the job agent, Starpetal Harvest,
-   Neon Ronin). Never emit a placeholder like [X] or [company]. If you cannot
-   write an honest opener for this role, say so in one sentence instead.
+4. The opener is written in Zack's first person voice, and rule 1 applies to it
+   with equal force. This is where it gets broken, because "I built X" is the
+   default register for a job application and it is a false claim about him.
+
+   BANNED, and these are real examples this prompt has produced:
+     "I build AI tooling end-to-end"
+     "I'm a US-based indie game developer"
+     "I've shipped interactive front-end work"
+     "my hands-on tooling"
+   Each one asserts he personally wrote the implementation. He did not.
+
+   WRITE INSTEAD, first person, accurate:
+     "I direct AI agents to build things and judge whether the output is right"
+     "I specified and shipped Sakura Storm"
+     "I caught the scoring model rating every posting identically"
+     "I don't write the implementation code, I decide what gets built and
+      whether it's correct"
+
+   Naming what he actually does is not a weakness to hide. It is the entire
+   pitch, and a hiring manager who finds out later feels lied to.
+
+5. Only these projects exist and may be named: Sakura Storm (certified, in
+   final review at Stake), Vault Legacy (built, never launched, say so),
+   Jarvis, the job agent, Hoard, Freedom Septic. Starpetal Harvest and Neon
+   Ronin are unfinished and are NOT citable. Never claim a game is launched or
+   playable when it is not.
+
+6. Never name a technology he does not use. He uses Claude, not OpenAI's API.
+   His game art is AI-generated to a brief, not pixel art he drew. If a posting
+   wants a skill he lacks, say so in the opener rather than inventing adjacency.
+
+7. Never emit a placeholder like [X] or [company]. If you cannot write an honest
+   opener for this role, say so in one sentence instead.
 
 ## Scoring
 
