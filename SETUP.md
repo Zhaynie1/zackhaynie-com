@@ -213,8 +213,17 @@ git push
 Then trigger the first run by hand:
 
 ```powershell
-curl.exe -H "Authorization: Bearer YOUR_CRON_SECRET" https://zackhaynie.com/api/cron/scrape
+curl.exe -H "Authorization: Bearer YOUR_CRON_SECRET" https://www.zackhaynie.com/api/cron/scrape
 ```
+
+**Use `www.`, not the bare domain.** The apex 308-redirects to `www`, and curl
+drops the `Authorization` header when a redirect crosses to a different host.
+Hitting `https://zackhaynie.com/...` silently returns the word "Redirecting..."
+and never runs anything, which looks like a broken endpoint and isn't.
+
+Add `?rescore=1` to wipe existing scores and re-score everything. Do that after
+editing `profile.summary` or the scoring prompt, since old rows keep whatever
+score the previous prompt gave them.
 
 It takes a minute or two. Then open `https://zackhaynie.com/agent`.
 
