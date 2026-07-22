@@ -507,6 +507,25 @@ export const companies: { name: string; board: BoardType; slug: string }[] = [
   { name: "Roblox", board: "greenhouse", slug: "roblox" },
 
   // ---------------------------------------------------------------------
+  // Tier 3b. Established software companies, added 2026-07-22.
+  //
+  // Added for a structural reason rather than a preference. Adding support,
+  // QA and IT titles to the target list produced only four new postings,
+  // because the other 36 companies here are AI startups and startups do not
+  // have support or IT departments. The titles were never the bottleneck.
+  // These are large enough to run real support, implementation and QA orgs,
+  // and they publish to boards this agent can actually read.
+  // ---------------------------------------------------------------------
+  { name: "Datadog", board: "greenhouse", slug: "datadog" },
+  { name: "Twilio", board: "greenhouse", slug: "twilio" },
+  { name: "Cloudflare", board: "greenhouse", slug: "cloudflare" },
+  { name: "Grafana", board: "greenhouse", slug: "grafanalabs" },
+  { name: "Postman", board: "greenhouse", slug: "postman" },
+  { name: "PagerDuty", board: "greenhouse", slug: "pagerduty" },
+  { name: "Sentry", board: "ashby", slug: "sentry" },
+  { name: "Airtable", board: "greenhouse", slug: "airtable" },
+
+  // ---------------------------------------------------------------------
   // Tier 4. Long shots, kept because applying is cheap. GitLab earned its
   // place: it produced the single highest-scoring posting in the first run
   // and is genuinely remote-first with unconventional hiring.
