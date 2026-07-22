@@ -53,12 +53,54 @@ function stripDashes(s: string): string {
     .trim();
 }
 
+/**
+ * Claims that must never reach the page, checked deterministically.
+ *
+ * The prompt already forbids all of these. In a 40-posting run it followed
+ * that instruction 39 times, which is a good hit rate and still not good
+ * enough: the openers are published on /agent, and one sentence claiming he
+ * uses a tool he has never touched costs more than all forty openers are
+ * worth. So the absolutes get enforced in code and the judgement calls are
+ * left to the prompt.
+ *
+ * Kept deliberately narrow. "I've built" is not here, because "the muscle
+ * I've built directing AI" is fine and "I've built a job agent" is not, and
+ * no regex tells those apart. That distinction is the prompt's job.
+ */
+const FORBIDDEN_IN_OPENER: { pattern: RegExp; why: string }[] = [
+  { pattern: /\bopen ?ai\b/i, why: "names a provider he does not use" },
+  { pattern: /\bgpt-?\d/i, why: "names a provider he does not use" },
+  { pattern: /\bstarpetal\b/i, why: "names an unfinished project" },
+  { pattern: /\bneon ronin\b/i, why: "names an unfinished project" },
+  {
+    pattern: /\bI (?:coded|programmed|implemented|architected)\b/i,
+    why: "claims he wrote the implementation",
+  },
+  {
+    pattern: /\bI(?:'m| am) an?(?: \w+){0,2} (?:developer|programmer|coder)\b/i,
+    why: "claims an identity he does not have",
+  },
+];
+
 function clean(fit: Fit): Fit {
+  let opener = stripDashes(fit.opener);
+
+  // Drop the opener entirely rather than publish a false claim. The page
+  // already renders openers conditionally, so an empty one just disappears,
+  // and the reason lands in the cron response where it can be noticed.
+  for (const { pattern, why } of FORBIDDEN_IN_OPENER) {
+    if (pattern.test(opener)) {
+      scoreErrors.push(`opener dropped: ${why}`);
+      opener = "";
+      break;
+    }
+  }
+
   return {
     ...fit,
     verdict: stripDashes(fit.verdict),
     reasons: fit.reasons.map(stripDashes),
-    opener: stripDashes(fit.opener),
+    opener,
   };
 }
 
