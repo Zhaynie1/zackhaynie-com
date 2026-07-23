@@ -244,12 +244,63 @@ h4 {
   color: var(--ink);
 }
 
+.nav-github {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Swapped in only on phones, where the octocat replaces the word "GitHub". */
+.nav-only-sm,
+.nav-only-xs {
+  display: none;
+}
+
+/*
+  All five nav items have to survive down to a 320px phone, so the row gets
+  squeezed rather than collapsed. Measured at 320px, the full-size row needs
+  353px of the 301px available, and the savings come in that order: smaller
+  type and tighter gaps first, then "GitHub" down to its icon, then the two
+  longest labels shortened below 400px. Change any label here and re-measure,
+  because 320px ends up with only 12px of slack.
+*/
 @media (max-width: 600px) {
+  .nav-inner {
+    gap: 12px;
+  }
   .nav-links {
-    gap: 18px;
+    gap: 15px;
+  }
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+  .nav-brand {
+    font-size: 0.875rem;
+  }
+  .nav-links .btn-sm {
+    padding: 6px 12px;
+    font-size: 0.75rem;
   }
   .nav-hide-sm {
     display: none;
+  }
+  .nav-only-sm {
+    display: inline-flex;
+  }
+  .nav-github {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Narrow phones: "Zack Haynie" becomes "Zack", "Email me" becomes "Email". */
+@media (max-width: 400px) {
+  .nav-links {
+    gap: 13px;
+  }
+  .nav-hide-xs {
+    display: none;
+  }
+  .nav-only-xs {
+    display: inline;
   }
 }
 

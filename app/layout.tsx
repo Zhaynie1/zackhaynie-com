@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import { profile } from "@/lib/profile";
 import { NavAnchor } from "./nav-anchor";
+import { GitHubMark } from "./github-mark";
 import "./globals.css";
 
 const sans = Inter_Tight({
@@ -34,28 +35,33 @@ export default function RootLayout({
         <header className="nav">
           <div className="wrap nav-inner">
             <NavAnchor id="top" className="nav-brand">
-              {profile.name}
+              <span className="nav-hide-xs">{profile.name}</span>
+              <span className="nav-only-xs">{profile.name.split(" ")[0]}</span>
             </NavAnchor>
             <nav className="nav-links">
-              <NavAnchor id="work" className="nav-hide-sm">
-                Work
-              </NavAnchor>
-              <NavAnchor id="agent" className="nav-hide-sm">
-                Agent
-              </NavAnchor>
-              <a href="/Zachary-Haynie-Resume.pdf" className="nav-hide-sm">
-                Resume
-              </a>
+              <NavAnchor id="work">Work</NavAnchor>
+              <NavAnchor id="agent">Agent</NavAnchor>
+              <a href="/Zachary-Haynie-Resume.pdf">Resume</a>
+              {/*
+                On phones the word "GitHub" is the first thing that has to go:
+                the octocat is recognisable on its own, and dropping six
+                characters is what lets the other three links stay.
+              */}
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-hide-sm"
+                className="nav-github"
+                aria-label="GitHub"
               >
-                GitHub
+                <span className="nav-hide-sm">GitHub</span>
+                <span className="nav-only-sm" aria-hidden>
+                  <GitHubMark />
+                </span>
               </a>
               <a href={`mailto:${profile.email}`} className="btn btn-primary btn-sm">
-                Email me
+                <span className="nav-hide-xs">Email me</span>
+                <span className="nav-only-xs">Email</span>
               </a>
             </nav>
           </div>
