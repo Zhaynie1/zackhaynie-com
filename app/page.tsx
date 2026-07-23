@@ -253,16 +253,30 @@ export default async function Home() {
                 <h3>{p.title}</h3>
                 <span>{p.kind}</span>
                 <p>{p.tagline}</p>
-                {p.repo && (
-                  <a
-                    href={p.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="row-repo"
-                  >
-                    <GitHubMark />
-                    Read the code
-                  </a>
+                {(p.live || p.repo) && (
+                  <div className="row-links">
+                    {p.live && (
+                      <a
+                        href={p.live.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="row-link"
+                      >
+                        {p.live.label}
+                      </a>
+                    )}
+                    {p.repo && (
+                      <a
+                        href={p.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="row-link"
+                      >
+                        <GitHubMark />
+                        Read the code
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
             ))}

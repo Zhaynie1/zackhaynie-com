@@ -760,13 +760,20 @@ h4 {
   font-size: 1.1875rem;
 }
 
-/* Source link on a compact row. Spans both columns and sits under the tagline
-   rather than beside the kind label, so it never competes with the title for
-   the eye on a scan down the list. */
-.row-repo {
+/* Proof links on a compact row: the live site, the source, or both. Spans both
+   columns and sits under the tagline rather than beside the kind label, so it
+   never competes with the title for the eye on a scan down the list. */
+.row-links {
   grid-column: 1 / -1;
   justify-self: start;
   margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+}
+
+.row-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -775,7 +782,7 @@ h4 {
   text-decoration: none;
 }
 
-.row-repo:hover {
+.row-link:hover {
   text-decoration: underline;
 }
 
