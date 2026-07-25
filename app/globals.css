@@ -802,6 +802,109 @@ h4 {
 }
 
 /* ============================================================
+   Website cards
+   ============================================================ */
+
+.site-grid {
+  display: grid;
+  /* 3 across on desktop, 2 on a tablet, 1 on a phone. The min is tuned so all
+     three sit on one row inside the 980px container rather than leaving one
+     card orphaned on a second row. */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin-top: 40px;
+}
+
+.site-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+/* A faux browser chrome so the screenshot below reads immediately as a live
+   website rather than a floating image. Just a bar and three dots. */
+.site-frame {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.site-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-elevated);
+}
+
+.site-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.site-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.site-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px 22px 22px;
+  flex: 1;
+}
+
+.site-name {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.site-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.site-loc {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+/* Pushed to the bottom so cards of uneven text still align their actions. */
+.site-cta {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.site-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.site-link:hover {
+  text-decoration: underline;
+}
+
+.site-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+/* ============================================================
    Agent
    ============================================================ */
 

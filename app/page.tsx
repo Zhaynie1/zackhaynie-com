@@ -3,6 +3,7 @@ import Image from "next/image";
 import { profile } from "@/lib/profile";
 import { GitHubMark } from "./github-mark";
 import { featuredProjects, otherProjects, type Project } from "@/lib/projects";
+import { websites } from "@/lib/websites";
 import { skills, levels } from "@/lib/skills";
 import { topJobs, stats, dbConfigured } from "@/lib/db";
 
@@ -133,8 +134,48 @@ function FeaturedProject({ project }: { project: Project }) {
 export default async function Home() {
   const [summary, matches] = await Promise.all([stats(), topJobs(3)]);
 
+  // Structured data so a search engine understands who this is: a person in
+  // Oklahoma, what he does, and where to find the rest of him. This is what
+  // gives Google something to show for a search of the name, which is the one
+  // search actually worth winning. Kept honest and minimal: a Person with what
+  // he knows and builds, not a padded business listing.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    url: profile.site,
+    email: `mailto:${profile.email}`,
+    jobTitle: "Ships software by directing AI",
+    description:
+      "Ships working software by directing AI coding agents, and builds websites for local businesses in Oklahoma.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Shawnee",
+      addressRegion: "OK",
+      addressCountry: "US",
+    },
+    sameAs: [profile.github],
+    knowsAbout: [
+      "Directing AI coding agents",
+      "Prompt engineering",
+      "AI agents",
+      "Web development",
+      "Next.js",
+      "TypeScript",
+      "Website design for small businesses",
+      "Slot game math and certification",
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       {/* ================= HERO ================= */}
       <section className="hero" id="top">
         <div className="wrap center stack-md">
@@ -279,6 +320,69 @@ export default async function Home() {
                   </div>
                 )}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WEBSITES ================= */}
+      <section className="section-tight" id="websites">
+        <div className="wrap">
+          <p className="t-label">Websites for local businesses</p>
+          <h2 className="t-section" style={{ marginTop: 14 }}>
+            Simple sites that get the call.
+          </h2>
+          <p className="t-body measure-wide" style={{ margin: "18px 0 0" }}>
+            Alongside the software, I build fast, no-nonsense sites for local
+            trades. No frameworks and no contact forms: someone standing in a
+            yard with a problem gets one tap to call, text, or email, and the
+            page loads on one bar of signal. If you run a business and need one,{" "}
+            <a href={`mailto:${profile.email}`} className="inline-link">
+              email me
+            </a>
+            .
+          </p>
+
+          <div className="site-grid">
+            {websites.map((site) => (
+              <article className="site-card" key={site.name}>
+                <div className="site-frame">
+                  <div className="site-frame-bar" aria-hidden>
+                    <span className="site-dot" />
+                    <span className="site-dot" />
+                    <span className="site-dot" />
+                  </div>
+                  <Image
+                    className="site-shot"
+                    src={site.shot.src}
+                    alt={site.shot.alt}
+                    placeholder="blur"
+                    sizes="(max-width: 700px) 100vw, 320px"
+                  />
+                </div>
+                <div className="site-body">
+                  <h3 className="site-name">{site.name}</h3>
+                  <p className="site-desc">{site.descriptor}</p>
+                  <p className="site-loc">{site.location}</p>
+                  <div className="site-cta">
+                    {site.href ? (
+                      <a
+                        href={site.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="site-link"
+                      >
+                        Visit the site <span aria-hidden>→</span>
+                      </a>
+                    ) : (
+                      <span className="site-soon">
+                        <span className="dot dot-amber" aria-hidden />
+                        Built, launching soon
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </div>

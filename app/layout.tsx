@@ -11,11 +11,20 @@ const sans = Inter_Tight({
   display: "swap",
 });
 
+/**
+ * Google Search Console verification token, from the "HTML tag" method:
+ * Search Console -> add property zackhaynie.com -> HTML tag -> copy the
+ * `content="..."` value (NOT the whole tag) in here, then redeploy. While it
+ * is empty no verification tag is emitted, so we never ship a broken one.
+ */
+const GOOGLE_SITE_VERIFICATION = "";
+
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
   title: `${profile.name} · ${profile.headline}`,
   description:
     "I ship working software by directing AI. Certified game math, a local-first assistant, and a job agent running live on this site.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: `${profile.name} · ${profile.headline}`,
     description:
@@ -24,6 +33,9 @@ export const metadata: Metadata = {
     siteName: profile.name,
     type: "website",
   },
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({

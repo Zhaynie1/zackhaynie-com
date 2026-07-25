@@ -182,21 +182,8 @@ export const projects: Project[] = [
     role: "My first project. Set the design question, made the server-authority and render-cap calls, and kept scope on the one thing that had to be proven first.",
     repo: "https://github.com/Zhaynie1/hoard",
   },
-  {
-    slug: "freedom-septic",
-    title: "Freedom Septic",
-    tagline:
-      "A paid site for a septic and storm shelter company in Central Oklahoma. Live, and you can open it and judge it yourself.",
-    year: "2026",
-    status: "live",
-    kind: "Client work · Live",
-    stack: ["HTML", "CSS", "JavaScript", "Cloudflare Pages"],
-    body: [
-      "No framework, fast on a bad connection. The constraint that mattered: most visitors are standing in a yard on one bar of signal with a problem that needs solving today.",
-      "No contact form either. Someone with sewage in their yard is not filling out a form and waiting for an email, so every call to action is a tap that dials, texts, or opens mail.",
-    ],
-    live: { label: "Visit the site", href: "https://freedomsepticllc.com" },
-  },
+  // Freedom Septic and the other local-business sites live in `lib/websites.ts`
+  // and render in their own section, with a plainer pitch aimed at owners.
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
