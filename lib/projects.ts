@@ -48,10 +48,10 @@ export const projects: Project[] = [
     slug: "sakura-storm",
     title: "Sakura Storm",
     tagline:
-      "A 6×5 slot game whose payout model holds a 0.97 return across three bet modes, verified over millions of simulated rounds and passed third-party certification.",
+      "A 6×5 slot game whose payout model holds a 0.97 return across three bet modes, verified over millions of simulated rounds. Now live and playable on Stake.",
     year: "2026",
-    status: "shipped",
-    kind: "Game · Certified",
+    status: "live",
+    kind: "Game · Live on Stake",
     featured: true,
     stack: ["Stake Engine", "Python", "TypeScript", "Svelte", "PixiJS"],
     body: [
@@ -59,7 +59,7 @@ export const projects: Project[] = [
       "The first thing I did was go to Stake and confirm exactly what the math had to hit, rather than assume it and find out later. It still failed their checks three times before it passed. Each time their RTP output came back and told me what was off, and it went another round.",
       "The front end had its own problem: spins would freeze partway through. That one mattered more than it looked, because a slot that stalls mid-spin loses the player and you do not get their attention back. The note below is how I found it.",
       "Certification is a useful forcing function, because it removes the option of \"close enough.\" A payout distribution is either provably correct across millions of rounds or it does not ship. Getting there meant a lot of runs where the answer was no.",
-      "It has passed both front end and math certification. It is now in final platform review ahead of release, and I will link it here the day it goes live.",
+      "It passed both front end and math certification, cleared final platform review, and is now live and playable on Stake. You can open it and play it yourself, linked above.",
     ],
     role: "Confirmed the math requirements with Stake up front, ran the model back through certification until it passed, and caught and fixed the spin freeze. Art, code and math were all AI-generated under my direction.",
 
@@ -80,15 +80,13 @@ export const projects: Project[] = [
       ],
     },
 
-    // On release: replace `pending` with
-    //   live: { label: "Play it on Stake Engine", href: "https://..." },
-    pending: "Certified. In final review ahead of release.",
+    live: { label: "Play it on Stake", href: "https://stake.us/casino/games/driftgaming-sakura-storm" },
 
     facts: [
       { label: "Return to player", value: "0.97 across all 3 bet modes" },
       { label: "Max win", value: "25,000×" },
       { label: "Bonus trigger", value: "1 in 400 spins" },
-      { label: "Certification", value: "Front end and math passed" },
+      { label: "Status", value: "Live on Stake" },
     ],
   },
   {
