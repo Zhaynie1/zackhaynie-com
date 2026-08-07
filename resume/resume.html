@@ -157,6 +157,8 @@
     <ul>
       <li>Architected so identity and memory live in a Python service rather than inside any one model, so swapping the underlying model does not reset what it knows.</li>
       <li>Routes by request type between a local GPU-hosted model and a cloud model with graceful fallback. Vision runs entirely on-device; camera data never leaves the house, set as a hard requirement rather than an optimization. Source is public.</li>
+      <li>Placed the whole assistant behind a private Tailscale network so it lives on the home PC yet answers the phone from anywhere with nothing exposed to the public internet, and pointed Home Assistant at the same service so every surface shares one identity and memory.</li>
+      <li>Extended it to a homemade ESP32-S3 smart-glasses camera that registers with the assistant on boot and captures photos and video on a spoken command, handed to the on-device vision model. A bench prototype today, with the capture path working end to end.</li>
     </ul>
   </div>
 
