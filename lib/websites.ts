@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import freedomShot from "@/media/site-freedom-septic.png";
 import countryShot from "@/media/site-country-auto.png";
 import landworxShot from "@/media/site-landworx.png";
+import rrLawnShot from "@/media/site-rr-premier-lawn.png";
 
 /**
  * Sites built for local businesses. Kept separate from `projects` on purpose:
@@ -39,9 +40,20 @@ export const websites: Website[] = [
     name: "Country Auto Service",
     descriptor: "A repair shop that does all types of auto work.",
     location: "McLoud, Oklahoma",
+    href: "https://countryautoservicellc.com",
     shot: {
       src: countryShot,
       alt: "Homepage of the Country Auto Service website. A navy and red hero reading 'All Types of Auto Repair' sits beside a shop-hours panel.",
+    },
+  },
+  {
+    name: "R&R Premier Lawn Services",
+    descriptor: "Mowing, flower beds, and yard cleanup.",
+    location: "Oklahoma City metro",
+    href: "https://rrpremierlawnservices.com",
+    shot: {
+      src: rrLawnShot,
+      alt: "Homepage of the R&R Premier Lawn Services website. A green hero reading 'Lawn Care You Can Count On' over a grass background sits beside a photo of a landscaped flower bed in front of a house.",
     },
   },
   {
