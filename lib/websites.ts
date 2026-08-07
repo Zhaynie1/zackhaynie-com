@@ -60,6 +60,7 @@ export const websites: Website[] = [
     name: "Landworx Construction",
     descriptor: "Concrete, excavation, and land clearing.",
     location: "Central Oklahoma",
+    href: "https://landworxconstruction.com",
     shot: {
       src: landworxShot,
       alt: "Homepage of the Landworx Construction website. A black and white hero over a jobsite photo reads 'Built on Solid Ground'.",
