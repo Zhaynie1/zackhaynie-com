@@ -179,6 +179,14 @@ export default async function Home() {
       {/* ================= HERO ================= */}
       <section className="hero" id="top">
         <div className="wrap center stack-md">
+          <div className="rise">
+            <a href="#websites" className="hero-ribbon">
+              <span className="hero-ribbon-tag">Websites</span>
+              Need one built for your business?
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+
           {summary.total > 0 && (
             <div className="rise">
               <span className="badge">
