@@ -458,6 +458,30 @@ h4 {
   color: var(--accent-ink);
 }
 
+/* Holds the two hero pills side by side, stacking on narrow screens. */
+.hero-ribbons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Secondary pill (tech help): neutral so the paid-website CTA stays the lead. */
+.hero-ribbon-alt {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink-2);
+}
+
+.hero-ribbon-alt:hover {
+  background: var(--bg-card);
+}
+
+.hero-ribbon-alt .hero-ribbon-tag {
+  background: var(--ink-2);
+  color: var(--bg);
+}
+
 /* ============================================================
    Cards
    ============================================================ */

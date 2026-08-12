@@ -179,10 +179,18 @@ export default async function Home() {
       {/* ================= HERO ================= */}
       <section className="hero" id="top">
         <div className="wrap center stack-md">
-          <div className="rise">
+          <div className="rise hero-ribbons">
             <a href="#websites" className="hero-ribbon">
               <span className="hero-ribbon-tag">Websites</span>
               Need one built for your business?
+              <span aria-hidden>→</span>
+            </a>
+            <a
+              href={`mailto:${profile.email}?subject=Local%20tech%20help`}
+              className="hero-ribbon hero-ribbon-alt"
+            >
+              <span className="hero-ribbon-tag">Tech help</span>
+              PCs, phones and software
               <span aria-hidden>→</span>
             </a>
           </div>
