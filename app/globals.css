@@ -15,6 +15,10 @@
   --line-soft: #e8e8ed;
   --accent: #0066cc;
   --accent-ink: #ffffff;
+  /* Secondary accent (tech-help pill). Green, kept dark enough to stay
+     high-contrast on the near-white page for older eyes. */
+  --accent-2: #0f7a3d;
+  --accent-2-ink: #ffffff;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
@@ -30,6 +34,9 @@
     --line-soft: #1c1c1f;
     --accent: #2997ff;
     --accent-ink: #000000;
+    /* Brighter green on the black page for the same reason. */
+    --accent-2: #3ddc74;
+    --accent-2-ink: #000000;
     --shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   }
 }
@@ -466,20 +473,21 @@ h4 {
   flex-wrap: wrap;
 }
 
-/* Secondary pill (tech help): neutral so the paid-website CTA stays the lead. */
+/* Secondary pill (tech help): green so it stays easy to see and reads as a
+   distinct service from the blue websites pill. */
 .hero-ribbon-alt {
-  background: transparent;
-  border-color: var(--line);
-  color: var(--ink-2);
+  background: color-mix(in srgb, var(--accent-2) 11%, transparent);
+  border-color: color-mix(in srgb, var(--accent-2) 40%, transparent);
+  color: var(--accent-2);
 }
 
 .hero-ribbon-alt:hover {
-  background: var(--bg-card);
+  background: color-mix(in srgb, var(--accent-2) 18%, transparent);
 }
 
 .hero-ribbon-alt .hero-ribbon-tag {
-  background: var(--ink-2);
-  color: var(--bg);
+  background: var(--accent-2);
+  color: var(--accent-2-ink);
 }
 
 /* ============================================================
