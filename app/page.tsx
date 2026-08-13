@@ -186,7 +186,9 @@ export default async function Home() {
               <span aria-hidden>→</span>
             </a>
             <a
-              href={`mailto:${profile.email}?subject=Local%20tech%20help`}
+              href="https://zhtechok.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hero-ribbon hero-ribbon-alt"
             >
               <span className="hero-ribbon-tag">Tech help</span>
