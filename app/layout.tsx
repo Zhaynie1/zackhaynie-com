@@ -3,7 +3,15 @@ import { Inter_Tight } from "next/font/google";
 import { profile } from "@/lib/profile";
 import { NavAnchor } from "./nav-anchor";
 import { GitHubMark } from "./github-mark";
+import { ThemeToggle } from "./theme-toggle";
 import "./globals.css";
+
+/**
+ * Runs before first paint: reads the saved theme and stamps it on <html> so
+ * there is no light/dark flash on load. Kept as a raw string in a blocking
+ * inline <script> for exactly that reason (a React effect would run too late).
+ */
+const THEME_INIT = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
 
 const sans = Inter_Tight({
   variable: "--font-sans",
@@ -42,7 +50,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={sans.variable}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={sans.variable}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>
         <header className="nav">
           <div className="wrap nav-inner">
@@ -75,6 +91,7 @@ export default function RootLayout({
                 <span className="nav-hide-xs">Email me</span>
                 <span className="nav-only-xs">Email</span>
               </a>
+              <ThemeToggle />
             </nav>
           </div>
         </header>
