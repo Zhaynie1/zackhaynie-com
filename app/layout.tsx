@@ -25,7 +25,7 @@ const sans = Inter_Tight({
  * `content="..."` value (NOT the whole tag) in here, then redeploy. While it
  * is empty no verification tag is emitted, so we never ship a broken one.
  */
-const GOOGLE_SITE_VERIFICATION = "lV9C0psrYF3HyFvSTwzlIyz3IAPKzh9t7FIaf-w6UXo";
+const GOOGLE_SITE_VERIFICATION = "ZpK2_Pv255MYT7bWUHsXK-2MiW1zCymeRH5d7XxxAbU";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
