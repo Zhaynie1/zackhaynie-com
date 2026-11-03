@@ -9,7 +9,7 @@ export const profile = {
   headline: "I ship software by directing AI",
   location: "Shawnee, Oklahoma (open to remote)",
   email: "zack@zackhaynie.com",
-  site: "https://zackhaynie.com",
+  site: "https://www.zackhaynie.com",
   github: "https://github.com/Zhaynie1",
 
   /** Fed to Claude as the "who is this candidate" context when scoring roles. */

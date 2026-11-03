@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: `Job agent · ${profile.name}`,
   description:
     "A live pipeline that reads job postings across a watchlist of companies, scores them with Claude, and drafts outreach.",
+  alternates: { canonical: "/agent" },
 };
 
 function ago(iso: string | null) {
