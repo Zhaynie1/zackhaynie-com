@@ -90,6 +90,37 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "tierbreakers",
+    title: "TierBreakers",
+    tagline:
+      "A free sports tier list maker and daily ranking game. More than 24,000 page views from real visitors in its first four weeks, most of them arriving from X.",
+    year: "2026",
+    status: "live",
+    kind: "Web app · Live",
+    featured: true,
+    stack: ["JavaScript", "Python", "Cloudflare Workers", "ESPN data"],
+    body: [
+      "Sports fans argue in tier lists. TierBreakers lets anyone build one in seconds: every team or player in the NFL, NBA, MLB, NHL, twelve soccer leagues and college sports, dragged into tiers on a phone and exported as an image sized so X shows it uncropped.",
+      "It also does player lists, mock drafts and power rankings, and a daily game where you rank five players on one stat and share your score, the same loop that made Wordle spread. Rosters, standings and draft boards refresh on their own every morning, so nothing goes stale while I am at my day job.",
+      "It launched on October 17, 2026 with no ad budget. The first real traffic came from a tier list I posted that reached about 65,000 views on X, with the link in a reply under it. Since then it has grown to more than 24,000 page views across about 5,300 visits in four weeks.",
+    ],
+    role: "Chose the product and the audience, set the rule that every export must fit X without cropping, decided to grow it through X first and Google second, and checked every traffic number against real-browser analytics before believing it.",
+    buildNote: {
+      title: "Why these traffic numbers are real",
+      body: [
+        "On an earlier site of mine, Cloudflare's dashboard reported around 7,000 visitors a day. It looked like a hit. When I dug into it, about 99 in every 100 of those visitors were AI training crawlers walking the pages one at a time. The real number of people was closer to 60 a day.",
+        "So for TierBreakers I only count visits from the analytics beacon that fires in a real, JavaScript-running browser. Bots that fetch pages without running them never show up in it. The 24,000 page views above are that number, not the bigger one the dashboard shows by default.",
+      ],
+    },
+    live: { label: "Try TierBreakers", href: "https://tierbreakers.com" },
+    facts: [
+      { label: "Page views, first 4 weeks", value: "24,000+" },
+      { label: "Visits, first 4 weeks", value: "~5,300" },
+      { label: "Leagues covered", value: "NFL, NBA, MLB, NHL, 12 soccer, college" },
+      { label: "Updates", value: "Automatic, every morning" },
+    ],
+  },
+  {
     slug: "job-agent",
     title: "The job agent",
     tagline:
@@ -183,6 +214,53 @@ export const projects: Project[] = [
     ],
     role: "My first project. Set the design question, made the server-authority and render-cap calls, and kept scope on the one thing that had to be proven first.",
     repo: "https://github.com/Zhaynie1/hoard",
+  },
+  {
+    slug: "tradecheck",
+    title: "Check Contractor License",
+    tagline:
+      "A free lookup for 870,080 contractor and trade licenses across 10 states and provinces, pulled straight from the state licensing boards and rechecked every day, so a homeowner can see if a license is still valid before writing the check.",
+    year: "2026",
+    status: "live",
+    kind: "Public data site · Live",
+    stack: ["Python", "Cloudflare", "State licensing data"],
+    body: [],
+    live: { label: "Look up a license", href: "https://checkcontractorlicense.com" },
+  },
+  {
+    slug: "hitchspec",
+    title: "HitchSpec",
+    tagline:
+      "Truck and SUV specs, towing math and recalls for over 12,000 year, make and model pages, built from EPA and NHTSA public data, so you can check whether your truck can actually pull that trailer.",
+    year: "2026",
+    status: "live",
+    kind: "Public data site · Live",
+    stack: ["Cloudflare Workers", "D1", "EPA and NHTSA data"],
+    body: [],
+    live: { label: "Visit HitchSpec", href: "https://hitchspec.com" },
+  },
+  {
+    slug: "film-timeline",
+    title: "The Film Timeline",
+    tagline:
+      "Five daily movie games and a scrollable timeline of every year of cinema from 1888 to today. Rate a film blind, name films from clues, and order the posters.",
+    year: "2026",
+    status: "live",
+    kind: "Web app · Live",
+    stack: ["Cloudflare Pages", "D1", "Wikidata"],
+    body: [],
+    live: { label: "Play The Film Timeline", href: "https://thefilmtimeline.com" },
+  },
+  {
+    slug: "deal-alerts",
+    title: "Dropfeed deal alerts",
+    tagline:
+      "A bot that runs every minute around the clock, catches Amazon price drops and pricing mistakes from public deal feeds, scores them, and posts the best ones to a Discord server sorted by category. It alerts and never buys, because auto-checkout bots get accounts banned.",
+    year: "2026",
+    status: "live",
+    kind: "Automation · Live",
+    stack: ["Cloudflare Workers", "D1", "Discord API"],
+    body: [],
   },
   // Freedom Septic and the other local-business sites live in `lib/websites.ts`
   // and render in their own section, with a plainer pitch aimed at owners.
